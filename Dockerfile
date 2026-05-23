@@ -1,14 +1,12 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Coolify injects NODE_ENV=production at build time which skips devDependencies
-ENV NODE_ENV=development
-
 # Build tools needed for better-sqlite3
 RUN apk add --no-cache python3 make g++
 
 COPY package*.json ./
-RUN npm ci
+# --include=dev ensures devDependencies are installed regardless of NODE_ENV
+RUN npm ci --include=dev
 
 COPY . .
 RUN npm run build
