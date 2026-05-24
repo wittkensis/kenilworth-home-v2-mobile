@@ -82,3 +82,15 @@ Same patterns as Pipeline — see LEARNINGS.md for critical Coolify/Docker gotch
 ## Key Learnings
 
 See `LEARNINGS.md` in this directory for documented build/deploy issues and fixes.
+
+---
+
+## Load at session start
+
+Open `.claude/skills/kwapp-home--deploy.md` immediately at every session start.
+
+## Skills
+
+| Trigger | Skill | Purpose |
+|---------|-------|---------|
+| deploy, push, coolify, go live | `kwapp-home--deploy` | Deploy automation |
