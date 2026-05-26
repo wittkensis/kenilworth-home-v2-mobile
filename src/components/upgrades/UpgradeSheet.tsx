@@ -52,76 +52,78 @@ export default function UpgradeSheet({ upgrade, open, onClose }: Props) {
 
   return (
     <Sheet open={open} onClose={onClose} title={title} noPadding>
-      <form action={handleSave} className="flex flex-col h-full">
-        <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 overscroll-contain">
-          <Field label="Name">
-            <input name="name" defaultValue={upgrade?.name ?? ''} required placeholder="e.g. Replace water heater" />
-          </Field>
-
-          <Field label="Description">
-            <textarea name="description" defaultValue={upgrade?.description ?? ''} placeholder="Optional details" />
-          </Field>
-
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Phase">
-              <select name="phase" defaultValue={upgrade?.phase ?? 'idea'}>
-                {PHASES.map((p) => (
-                  <option key={p} value={p}>{fmt(p)}</option>
-                ))}
-              </select>
+      <form action={handleSave} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div className="sheet-body">
+          <div className="form-fields">
+            <Field label="Name">
+              <input name="name" defaultValue={upgrade?.name ?? ''} required placeholder="e.g. Replace water heater" className="input" />
             </Field>
-            <Field label="Priority">
-              <select name="priority" defaultValue={upgrade?.priority ?? 'medium'}>
+
+            <Field label="Description">
+              <textarea name="description" defaultValue={upgrade?.description ?? ''} placeholder="Optional details" className="input textarea" />
+            </Field>
+
+            <div className="form-fields-row">
+              <Field label="Phase">
+                <select name="phase" defaultValue={upgrade?.phase ?? 'idea'} className="input select">
+                  {PHASES.map((p) => (
+                    <option key={p} value={p}>{fmt(p)}</option>
+                  ))}
+                </select>
+              </Field>
+              <Field label="Priority">
+                <select name="priority" defaultValue={upgrade?.priority ?? 'medium'} className="input select">
+                  <option value="">None</option>
+                  {PRIORITIES.map((p) => (
+                    <option key={p} value={p}>{fmt(p)}</option>
+                  ))}
+                </select>
+              </Field>
+            </div>
+
+            <Field label="Category">
+              <select name="category" defaultValue={upgrade?.category ?? ''} className="input select">
                 <option value="">None</option>
-                {PRIORITIES.map((p) => (
-                  <option key={p} value={p}>{fmt(p)}</option>
+                {CATEGORIES.map((c) => (
+                  <option key={c} value={c}>{fmt(c)}</option>
                 ))}
               </select>
             </Field>
+
+            <div className="form-fields-row-3">
+              <Field label="Est. Low ($)">
+                <input name="estimated_cost_low" type="number" min="0" step="100"
+                  defaultValue={upgrade?.estimated_cost_low ?? ''} placeholder="0" className="input" />
+              </Field>
+              <Field label="Est. High ($)">
+                <input name="estimated_cost_high" type="number" min="0" step="100"
+                  defaultValue={upgrade?.estimated_cost_high ?? ''} placeholder="0" className="input" />
+              </Field>
+              <Field label="Actual ($)">
+                <input name="actual_cost" type="number" min="0" step="100"
+                  defaultValue={upgrade?.actual_cost ?? ''} placeholder="0" className="input" />
+              </Field>
+            </div>
+
+            <div className="form-fields-row">
+              <Field label="Target Date">
+                <input name="target_date" type="date" defaultValue={upgrade?.target_date ?? ''} className="input" />
+              </Field>
+              <Field label="Started">
+                <input name="started_date" type="date" defaultValue={upgrade?.started_date ?? ''} className="input" />
+              </Field>
+            </div>
+
+            <Field label="Completed">
+              <input name="completed_date" type="date" defaultValue={upgrade?.completed_date ?? ''} className="input" />
+            </Field>
+
+            <Field label="Notes">
+              <textarea name="notes" defaultValue={upgrade?.notes ?? ''} placeholder="Optional notes" className="input textarea" />
+            </Field>
           </div>
-
-          <Field label="Category">
-            <select name="category" defaultValue={upgrade?.category ?? ''}>
-              <option value="">None</option>
-              {CATEGORIES.map((c) => (
-                <option key={c} value={c}>{fmt(c)}</option>
-              ))}
-            </select>
-          </Field>
-
-          <div className="grid grid-cols-3 gap-2">
-            <Field label="Est. Low ($)">
-              <input name="estimated_cost_low" type="number" min="0" step="100"
-                defaultValue={upgrade?.estimated_cost_low ?? ''} placeholder="0" />
-            </Field>
-            <Field label="Est. High ($)">
-              <input name="estimated_cost_high" type="number" min="0" step="100"
-                defaultValue={upgrade?.estimated_cost_high ?? ''} placeholder="0" />
-            </Field>
-            <Field label="Actual ($)">
-              <input name="actual_cost" type="number" min="0" step="100"
-                defaultValue={upgrade?.actual_cost ?? ''} placeholder="0" />
-            </Field>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Target Date">
-              <input name="target_date" type="date" defaultValue={upgrade?.target_date ?? ''} />
-            </Field>
-            <Field label="Started">
-              <input name="started_date" type="date" defaultValue={upgrade?.started_date ?? ''} />
-            </Field>
-          </div>
-
-          <Field label="Completed">
-            <input name="completed_date" type="date" defaultValue={upgrade?.completed_date ?? ''} />
-          </Field>
-
-          <Field label="Notes">
-            <textarea name="notes" defaultValue={upgrade?.notes ?? ''} placeholder="Optional notes" />
-          </Field>
         </div>
-        <div className="shrink-0 px-5 py-4 border-t" style={{ borderColor: 'var(--border)' }}>
+        <div className="sheet-footer">
           <FormActions
             onCancel={onClose}
             onDelete={upgrade?.id ? handleDelete : undefined}

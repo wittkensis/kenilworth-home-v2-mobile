@@ -76,60 +76,62 @@ export default function TaskSheet({ task, open, onClose }: Props) {
   return (
     <Sheet open={open} onClose={handleClose} title={title} noPadding>
       {!isNew && (
-        <div className="flex mx-5 mt-4 rounded-lg overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
-          {(['edit', 'log'] as const).map((t) => (
-            <button
-              key={t}
-              onClick={() => handleTabChange(t)}
-              className="flex-1 py-2.5 text-sm font-medium capitalize transition-colors"
-              style={{
-                background: tab === t ? 'var(--accent)' : 'transparent',
-                color: tab === t ? '#1A1A1A' : 'var(--text-muted)',
-              }}
-            >
-              {t === 'edit' ? 'Edit' : 'Log'}
-            </button>
-          ))}
+        <div style={{ padding: '12px 20px 0' }}>
+          <div className="tab-switcher">
+            {(['edit', 'log'] as const).map((t) => (
+              <button
+                key={t}
+                onClick={() => handleTabChange(t)}
+                className={`tab-switcher-tab${tab === t ? ' tab-switcher-tab--active' : ''}`}
+              >
+                {t === 'edit' ? 'Edit' : 'Log'}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
       {tab === 'edit' ? (
-        <form action={handleSave} className="flex flex-col h-full">
-          <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 overscroll-contain">
-            <Field label="Task Name">
-              <input name="name" defaultValue={task?.name ?? ''} required placeholder="e.g. Clean gutters" />
-            </Field>
+        <form action={handleSave} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+          <div className="sheet-body">
+            <div className="form-fields">
+              <Field label="Task Name">
+                <input name="name" defaultValue={task?.name ?? ''} required placeholder="e.g. Clean gutters" className="input" />
+              </Field>
 
-            <div className="grid grid-cols-2 gap-3">
-              <Field label="Frequency (days)">
+              <div className="form-fields-row">
+                <Field label="Frequency (days)">
+                  <input
+                    name="frequency_days"
+                    type="number"
+                    min="1"
+                    defaultValue={task?.frequency_days ?? 365}
+                    required
+                    className="input"
+                  />
+                </Field>
+                <Field label="Label">
+                  <input name="frequency_label" defaultValue={task?.frequency_label ?? ''} placeholder="e.g. Annual" className="input" />
+                </Field>
+              </div>
+
+              <Field label="Est. Minutes">
                 <input
-                  name="frequency_days"
+                  name="estimated_minutes"
                   type="number"
-                  min="1"
-                  defaultValue={task?.frequency_days ?? 365}
-                  required
+                  min="0"
+                  defaultValue={task?.estimated_minutes ?? ''}
+                  placeholder="Optional"
+                  className="input"
                 />
               </Field>
-              <Field label="Label">
-                <input name="frequency_label" defaultValue={task?.frequency_label ?? ''} placeholder="e.g. Annual" />
+
+              <Field label="Notes">
+                <textarea name="notes" defaultValue={task?.notes ?? ''} placeholder="Optional notes" className="input textarea" />
               </Field>
             </div>
-
-            <Field label="Est. Minutes">
-              <input
-                name="estimated_minutes"
-                type="number"
-                min="0"
-                defaultValue={task?.estimated_minutes ?? ''}
-                placeholder="Optional"
-              />
-            </Field>
-
-            <Field label="Notes">
-              <textarea name="notes" defaultValue={task?.notes ?? ''} placeholder="Optional notes" />
-            </Field>
           </div>
-          <div className="shrink-0 px-5 py-4 border-t" style={{ borderColor: 'var(--border)' }}>
+          <div className="sheet-footer">
             <FormActions
               onCancel={handleClose}
               onDelete={task?.id ? handleDelete : undefined}
@@ -138,15 +140,16 @@ export default function TaskSheet({ task, open, onClose }: Props) {
           </div>
         </form>
       ) : (
-        <div className="overflow-y-auto px-5 py-4 space-y-4 overscroll-contain">
+        <div className="sheet-body sheet-body--padded">
           {/* Log new completion */}
-          <div className="rounded-xl p-4 space-y-3" style={{ background: 'var(--surface-raised)' }}>
-            <p className="text-sm font-medium" style={{ color: 'var(--text)' }}>Log completion</p>
+          <div className="log-card" style={{ marginBottom: '16px' }}>
+            <p style={{ fontSize: '0.875rem', fontWeight: 500, color: 'var(--text)' }}>Log completion</p>
             <Field label="Date">
               <input
                 type="date"
                 value={logDate}
                 onChange={(e) => setLogDate(e.target.value)}
+                className="input"
               />
             </Field>
             <Field label="Notes (optional)">
@@ -155,13 +158,15 @@ export default function TaskSheet({ task, open, onClose }: Props) {
                 value={logNotes}
                 onChange={(e) => setLogNotes(e.target.value)}
                 placeholder="Any notes..."
+                className="input"
               />
             </Field>
             <button
+              type="button"
               onClick={handleLog}
               disabled={isPending}
-              className="w-full py-3 rounded-xl text-sm font-semibold active:scale-[0.98] transition-transform disabled:opacity-50"
-              style={{ background: 'var(--success)', color: '#E5E0D8' }}
+              className="btn btn-primary"
+              style={{ width: '100%' }}
             >
               {isPending ? 'Logging...' : 'Mark Complete'}
             </button>
@@ -170,19 +175,17 @@ export default function TaskSheet({ task, open, onClose }: Props) {
           {/* Past logs */}
           {logs.length > 0 && (
             <div>
-              <p className="text-xs uppercase tracking-wide mb-2" style={{ color: 'var(--text-muted)' }}>History</p>
-              <div className="space-y-2">
-                {logs.map((log) => (
-                  <div key={log.id} className="flex justify-between items-center py-2.5 border-b" style={{ borderColor: 'var(--border)' }}>
-                    <span className="text-sm" style={{ color: 'var(--text)' }}>{log.completed_date}</span>
-                    {log.notes && <span className="text-sm" style={{ color: 'var(--text-muted)' }}>{log.notes}</span>}
-                  </div>
-                ))}
-              </div>
+              <p className="category-label">History</p>
+              {logs.map((log) => (
+                <div key={log.id} className="row">
+                  <span className="row-primary">{log.completed_date}</span>
+                  {log.notes && <span className="row-trailing">{log.notes}</span>}
+                </div>
+              ))}
             </div>
           )}
           {logs.length === 0 && !isPending && (
-            <p className="text-sm text-center py-4" style={{ color: 'var(--text-muted)' }}>No logs yet</p>
+            <p style={{ fontSize: '0.875rem', textAlign: 'center', padding: '16px 0', color: 'var(--text-dim)' }}>No logs yet</p>
           )}
         </div>
       )}

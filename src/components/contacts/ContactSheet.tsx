@@ -49,69 +49,71 @@ export default function ContactSheet({ contact, open, onClose }: Props) {
 
   return (
     <Sheet open={open} onClose={onClose} title={title} noPadding>
-      <form action={handleSave} className="flex flex-col h-full">
-        <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 overscroll-contain">
-          <Field label="Name">
-            <input name="name" defaultValue={contact?.name ?? ''} required placeholder="Full name" />
-          </Field>
-
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Company">
-              <input name="company" defaultValue={contact?.company ?? ''} placeholder="Optional" />
+      <form action={handleSave} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+        <div className="sheet-body">
+          <div className="form-fields">
+            <Field label="Name">
+              <input name="name" defaultValue={contact?.name ?? ''} required placeholder="Full name" className="input" />
             </Field>
-            <Field label="Trade">
-              <select name="trade" defaultValue={contact?.trade ?? ''}>
-                <option value="">Select trade</option>
-                {TRADES.map((t) => (
-                  <option key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</option>
-                ))}
+
+            <div className="form-fields-row">
+              <Field label="Company">
+                <input name="company" defaultValue={contact?.company ?? ''} placeholder="Optional" className="input" />
+              </Field>
+              <Field label="Trade">
+                <select name="trade" defaultValue={contact?.trade ?? ''} className="input select">
+                  <option value="">Select trade</option>
+                  {TRADES.map((t) => (
+                    <option key={t} value={t}>{t.charAt(0).toUpperCase() + t.slice(1)}</option>
+                  ))}
+                </select>
+              </Field>
+            </div>
+
+            <div className="form-fields-row">
+              <Field label="Phone">
+                <input name="phone" type="tel" defaultValue={contact?.phone ?? ''} placeholder="(555) 555-5555" className="input" />
+              </Field>
+              <Field label="Email">
+                <input name="email" type="email" defaultValue={contact?.email ?? ''} placeholder="Optional" className="input" />
+              </Field>
+            </div>
+
+            <Field label="Website">
+              <input name="website" type="url" defaultValue={contact?.website ?? ''} placeholder="https://..." className="input" />
+            </Field>
+
+            <div className="form-fields-row">
+              <Field label="Rating">
+                <select name="rating" defaultValue={contact?.rating?.toString() ?? ''} className="input select">
+                  <option value="">No rating</option>
+                  {RATINGS.map((r) => (
+                    <option key={r} value={r}>{'★'.repeat(r)} {r}/5</option>
+                  ))}
+                </select>
+              </Field>
+              <Field label="Last Used">
+                <input name="last_used_date" type="date" defaultValue={contact?.last_used_date ?? ''} className="input" />
+              </Field>
+            </div>
+
+            <Field label="Favorite">
+              <select name="is_favorite" defaultValue={contact?.is_favorite ? '1' : '0'} className="input select">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
               </select>
             </Field>
-          </div>
 
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Phone">
-              <input name="phone" type="tel" defaultValue={contact?.phone ?? ''} placeholder="(555) 555-5555" />
+            <Field label="Tags (comma separated)">
+              <input name="tags" defaultValue={contact?.tags ?? ''} placeholder="e.g. trusted, expensive" className="input" />
             </Field>
-            <Field label="Email">
-              <input name="email" type="email" defaultValue={contact?.email ?? ''} placeholder="Optional" />
-            </Field>
-          </div>
 
-          <Field label="Website">
-            <input name="website" type="url" defaultValue={contact?.website ?? ''} placeholder="https://..." />
-          </Field>
-
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Rating">
-              <select name="rating" defaultValue={contact?.rating?.toString() ?? ''}>
-                <option value="">No rating</option>
-                {RATINGS.map((r) => (
-                  <option key={r} value={r}>{'★'.repeat(r)} {r}/5</option>
-                ))}
-              </select>
-            </Field>
-            <Field label="Last Used">
-              <input name="last_used_date" type="date" defaultValue={contact?.last_used_date ?? ''} />
+            <Field label="Notes">
+              <textarea name="notes" defaultValue={contact?.notes ?? ''} placeholder="Optional notes" className="input textarea" />
             </Field>
           </div>
-
-          <Field label="Favorite">
-            <select name="is_favorite" defaultValue={contact?.is_favorite ? '1' : '0'}>
-              <option value="0">No</option>
-              <option value="1">Yes</option>
-            </select>
-          </Field>
-
-          <Field label="Tags (comma separated)">
-            <input name="tags" defaultValue={contact?.tags ?? ''} placeholder="e.g. trusted, expensive" />
-          </Field>
-
-          <Field label="Notes">
-            <textarea name="notes" defaultValue={contact?.notes ?? ''} placeholder="Optional notes" />
-          </Field>
         </div>
-        <div className="shrink-0 px-5 py-4 border-t" style={{ borderColor: 'var(--border)' }}>
+        <div className="sheet-footer">
           <FormActions
             onCancel={onClose}
             onDelete={contact?.id ? handleDelete : undefined}

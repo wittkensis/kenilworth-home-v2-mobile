@@ -1,0 +1,12 @@
+/* Folk-Modern Dark (default) — Focus, Pipeline, Songbook, Home */
+:root {
+  --bg:             #1A1816;
+  --surface:        #2D2A26;
+  --surface-raised: #3A3630;
+  --border:         rgba(139, 126, 106, 0.2);
+  --text:           #F5F1E8;
+  --text-dim:       #8B7E6A;
+  --accent:         #A8946A;
+  --accent-fg:      #1A1816;
+  --danger:         rgba(239, 68, 68, 1);
+}

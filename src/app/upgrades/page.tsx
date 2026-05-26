@@ -8,8 +8,8 @@ export default async function UpgradesPage() {
   const upgrades = await getUpgrades();
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg)' }}>
-      <div className="flex-1 pb-24 overflow-y-auto">
+    <div className="page">
+      <div className="page-body-nav">
         <UpgradeList upgrades={upgrades} />
       </div>
       <BottomNav />

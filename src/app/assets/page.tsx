@@ -10,8 +10,8 @@ export default async function AssetsPage() {
   ]);
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg)' }}>
-      <div className="flex-1 pb-24 overflow-y-auto">
+    <div className="page">
+      <div className="page-body-nav">
         <AssetList assets={assets} areaGroups={areaGroups} areaItems={areaItems} />
       </div>
       <BottomNav />

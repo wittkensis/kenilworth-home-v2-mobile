@@ -25,42 +25,19 @@ export default function Sheet({ open, onClose, title, children, noPadding }: She
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col justify-end">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 backdrop-blur-sm"
-        style={{ background: 'rgba(0,0,0,0.6)' }}
-        onClick={onClose}
-      />
+    <div className="sheet-backdrop">
+      {/* Backdrop overlay */}
+      <div className="sheet-backdrop-overlay" onClick={onClose} />
 
-      {/* Sheet */}
-      <div
-        ref={sheetRef}
-        className="relative rounded-t-2xl overflow-hidden flex flex-col"
-        style={{
-          background: 'var(--surface)',
-          maxHeight: '92vh',
-          animation: 'slide-up 250ms cubic-bezier(0.32,0.72,0,1) forwards',
-        }}
-      >
+      {/* Sheet panel */}
+      <div ref={sheetRef} className="sheet-panel">
         {/* Handle */}
-        <div className="flex justify-center pt-3 pb-1">
-          <div className="w-10 h-1 rounded-full" style={{ background: 'var(--border)' }} />
-        </div>
+        <div className="sheet-handle" />
 
         {/* Header */}
-        <div
-          className="flex items-center justify-between px-5 py-3 border-b"
-          style={{ borderColor: 'var(--border)' }}
-        >
-          <h2 className="text-base font-semibold" style={{ color: 'var(--text)' }}>
-            {title}
-          </h2>
-          <button
-            onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-full"
-            style={{ background: 'var(--surface-raised)', color: 'var(--text-muted)' }}
-          >
+        <div className="sheet-header">
+          <h2 className="sheet-title">{title}</h2>
+          <button className="sheet-close" onClick={onClose} aria-label="Close">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
             </svg>
@@ -68,7 +45,7 @@ export default function Sheet({ open, onClose, title, children, noPadding }: She
         </div>
 
         {/* Content */}
-        <div className={noPadding ? 'overflow-y-auto flex-1' : 'overflow-y-auto flex-1 px-5 py-4 pb-safe'}>
+        <div className={noPadding ? 'sheet-body' : 'sheet-body sheet-body--padded'}>
           {children}
         </div>
       </div>

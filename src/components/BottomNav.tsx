@@ -70,10 +70,10 @@ export default function BottomNav() {
 
   return (
     <>
-      {/* Backdrop */}
+      {/* Dismiss backdrop for more menu */}
       {moreOpen && (
         <div
-          className="fixed inset-0 z-40"
+          style={{ position: 'fixed', inset: 0, zIndex: 40 }}
           onClick={() => setMoreOpen(false)}
         />
       )}
@@ -81,13 +81,8 @@ export default function BottomNav() {
       {/* More popup card */}
       {moreOpen && (
         <div
-          className="fixed left-4 right-4 z-50 rounded-2xl overflow-hidden"
-          style={{
-            bottom: 'calc(max(12px, env(safe-area-inset-bottom)) + 64px)',
-            background: 'var(--surface-raised)',
-            border: '1px solid var(--border)',
-            boxShadow: '0 -8px 32px rgba(0,0,0,0.5)',
-          }}
+          className="bottom-nav-more"
+          style={{ bottom: 'calc(max(12px, env(safe-area-inset-bottom)) + 64px)' }}
         >
           {moreTabs.map((tab, i) => {
             const active = pathname.startsWith(tab.href);
@@ -96,14 +91,10 @@ export default function BottomNav() {
                 key={tab.href}
                 href={tab.href}
                 onClick={() => setMoreOpen(false)}
-                className="flex items-center gap-4 px-5 py-4"
-                style={{
-                  color: active ? 'var(--accent)' : 'var(--text)',
-                  borderBottom: i < moreTabs.length - 1 ? '1px solid var(--border)' : undefined,
-                }}
+                className={`bottom-nav-more-item${active ? ' active' : ''}`}
               >
                 {tab.icon(active)}
-                <span className="text-base font-medium">{tab.label}</span>
+                <span>{tab.label}</span>
               </Link>
             );
           })}
@@ -111,14 +102,7 @@ export default function BottomNav() {
       )}
 
       {/* Nav bar */}
-      <nav
-        className="fixed bottom-0 left-0 right-0 flex border-t z-40"
-        style={{
-          background: 'var(--surface)',
-          borderColor: 'var(--border)',
-          paddingBottom: 'max(12px, env(safe-area-inset-bottom))',
-        }}
-      >
+      <nav className="bottom-nav">
         {primaryTabs.map((tab) => {
           const active = pathname.startsWith(tab.href);
           return (
@@ -126,11 +110,10 @@ export default function BottomNav() {
               key={tab.href}
               href={tab.href}
               onClick={() => setMoreOpen(false)}
-              className="flex-1 flex flex-col items-center gap-1 pt-3 pb-1 active:opacity-70"
-              style={{ color: active ? 'var(--accent)' : 'var(--text-muted)' }}
+              className={`bottom-nav-tab${active ? ' active' : ''}`}
             >
               {tab.icon(active)}
-              <span className="text-[10px] font-medium">{tab.label}</span>
+              <span>{tab.label}</span>
             </Link>
           );
         })}
@@ -138,15 +121,14 @@ export default function BottomNav() {
         {/* More button */}
         <button
           onClick={() => setMoreOpen((v) => !v)}
-          className="flex-1 flex flex-col items-center gap-1 pt-3 pb-1 active:opacity-70"
-          style={{ color: moreActive || moreOpen ? 'var(--accent)' : 'var(--text-muted)' }}
+          className={`bottom-nav-tab${moreActive || moreOpen ? ' active' : ''}`}
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={moreActive || moreOpen ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
             <circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none"/>
             <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/>
             <circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none"/>
           </svg>
-          <span className="text-[10px] font-medium">More</span>
+          <span>More</span>
         </button>
       </nav>
     </>

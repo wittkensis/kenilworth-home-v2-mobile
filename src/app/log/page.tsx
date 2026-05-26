@@ -8,8 +8,8 @@ export const dynamic = 'force-dynamic';
 export default async function LogPage() {
   const [logEntries, assets] = await Promise.all([getLogEntries(), getAssets()]);
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg)' }}>
-      <div className="flex-1 pb-24 overflow-y-auto">
+    <div className="page">
+      <div className="page-body-nav">
         <LogView logEntries={logEntries} assets={assets} />
       </div>
       <BottomNav />
