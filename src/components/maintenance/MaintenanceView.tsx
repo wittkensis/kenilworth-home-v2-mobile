@@ -159,7 +159,7 @@ function RemindersTab({
               onClick={() => toggle(season)}
               className="w-full flex items-center justify-between py-3"
             >
-              <span className="text-xs uppercase tracking-wider font-medium" style={{ color: 'var(--text-muted)' }}>
+              <span className="text-base font-semibold" style={{ color: 'var(--text)' }}>
                 {SEASON_LABELS[season]}
               </span>
               <div className="flex items-center gap-2.5">
