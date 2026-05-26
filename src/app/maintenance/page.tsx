@@ -1,16 +1,22 @@
 import BottomNav from '@/components/BottomNav';
-import MaintenanceList from '@/components/maintenance/MaintenanceList';
-import { getTasks } from '@/actions/maintenance';
+import MaintenanceView from '@/components/maintenance/MaintenanceView';
+import { getReminders } from '@/actions/routineReminders';
+import { getLogEntries } from '@/actions/maintenanceLog';
+import { getAssets } from '@/actions/assets';
 
 export const dynamic = 'force-dynamic';
 
 export default async function MaintenancePage() {
-  const tasks = await getTasks();
+  const [reminders, logEntries, assets] = await Promise.all([
+    getReminders(),
+    getLogEntries(),
+    getAssets(),
+  ]);
 
   return (
     <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg)' }}>
       <div className="flex-1 pb-24 overflow-y-auto">
-        <MaintenanceList tasks={tasks} />
+        <MaintenanceView reminders={reminders} logEntries={logEntries} assets={assets} />
       </div>
       <BottomNav />
     </div>

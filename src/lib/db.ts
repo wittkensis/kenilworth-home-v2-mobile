@@ -36,6 +36,29 @@ function runMigrations(db: Database.Database) {
     );
     CREATE INDEX IF NOT EXISTS idx_maintenance_logs_task ON maintenance_logs(task_id);
     CREATE INDEX IF NOT EXISTS idx_maintenance_logs_date ON maintenance_logs(completed_date);
+
+    CREATE TABLE IF NOT EXISTS routine_reminders (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      season TEXT NOT NULL CHECK(season IN ('spring','summer','fall','winter','year-round')),
+      season_position TEXT CHECK(season_position IN ('beginning','end')),
+      notes TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+    CREATE INDEX IF NOT EXISTS idx_routine_reminders_season ON routine_reminders(season);
+
+    CREATE TABLE IF NOT EXISTS maintenance_log (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      name TEXT NOT NULL,
+      date TEXT NOT NULL DEFAULT (date('now')),
+      asset_id INTEGER REFERENCES assets(id) ON DELETE SET NULL,
+      contractor TEXT,
+      cost REAL,
+      notes TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+    CREATE INDEX IF NOT EXISTS idx_maintenance_log_date ON maintenance_log(date DESC);
+    CREATE INDEX IF NOT EXISTS idx_maintenance_log_asset ON maintenance_log(asset_id);
   `);
 }
 
