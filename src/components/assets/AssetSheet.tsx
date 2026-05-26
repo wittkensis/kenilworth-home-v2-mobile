@@ -60,7 +60,7 @@ export default function AssetSheet({ asset, areaGroups, areaItems, open, onClose
 
   return (
     <Sheet open={open} onClose={handleClose} title={title} noPadding>
-      <form action={handleSave} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <form action={handleSave} className="sheet-form">
         <div className="sheet-body">
           <div className="form-fields">
             <Field label="Name">

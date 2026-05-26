@@ -16,7 +16,7 @@ export default async function LoginPage({
           <div className="login-subtitle">Enter password to continue</div>
         </div>
 
-        <form action={loginAction} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <form action={loginAction} className="login-form">
           <div className="field">
             <input
               type="password"

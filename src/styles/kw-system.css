@@ -521,14 +521,50 @@ a {
   color: var(--text);
 }
 
+/* Sheet body — clips by default; scroll is owned by the direct child */
 .sheet-body {
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* For simple non-form content that needs to scroll with padding */
+.sheet-body--padded {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 16px 20px;
+}
+
+/* ─── FORM LAYOUTS ──────────────────────────────────────────── */
+
+/* Full-height form filling a sheet — sticky footer, scrollable fields */
+.sheet-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+/* The scrollable field area inside .sheet-form */
+.sheet-form > .form-fields {
   flex: 1;
   overflow-y: auto;
   overscroll-behavior: contain;
 }
 
-.sheet-body--padded {
-  padding: 16px 20px;
+/* Same pattern for a form that fills a page body */
+.page-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.page-form > .form-fields {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .sheet-footer {

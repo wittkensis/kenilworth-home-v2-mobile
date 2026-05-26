@@ -50,7 +50,7 @@ export default function ReminderSheet({ reminder, open, onClose }: Props) {
 
   return (
     <Sheet open={open} onClose={handleClose} title={reminder ? reminder.name : 'New Reminder'} noPadding>
-      <form action={handleSave} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <form action={handleSave} className="sheet-form">
         <div className="sheet-body">
           <div className="form-fields">
             <Field label="Reminder">

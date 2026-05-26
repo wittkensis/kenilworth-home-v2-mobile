@@ -49,7 +49,7 @@ export default function ContactSheet({ contact, open, onClose }: Props) {
 
   return (
     <Sheet open={open} onClose={onClose} title={title} noPadding>
-      <form action={handleSave} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <form action={handleSave} className="sheet-form">
         <div className="sheet-body">
           <div className="form-fields">
             <Field label="Name">

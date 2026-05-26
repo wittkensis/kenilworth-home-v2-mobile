@@ -45,7 +45,7 @@ export default function LogSheet({ entry, assets, open, onClose }: Props) {
 
   return (
     <Sheet open={open} onClose={handleClose} title={entry ? entry.name : 'Log Maintenance'} noPadding>
-      <form action={handleSave} style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      <form action={handleSave} className="sheet-form">
         <div className="sheet-body">
           <div className="form-fields">
             <Field label="What was done">
