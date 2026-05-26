@@ -61,7 +61,7 @@ export default function UpgradeList({ upgrades }: { upgrades: UpgradeRow[] }) {
 
   return (
     <>
-      <div className="flex items-center justify-between px-5 pt-5 pb-4">
+      <div className="flex items-center justify-between px-5 pt-5 pb-2">
         <h1 className="text-xl font-semibold" style={{ color: 'var(--text)' }}>Upgrades</h1>
         <button
           onClick={() => { setSelected(null); setSheetOpen(true); }}
@@ -78,37 +78,42 @@ export default function UpgradeList({ upgrades }: { upgrades: UpgradeRow[] }) {
             No upgrades yet. Tap + to add one.
           </p>
         ) : (
-          visiblePhases.map((phase) => {
+          visiblePhases.map((phase, i) => {
             const items = grouped[phase];
             const isOpen = openPhases.has(phase);
             return (
-              <div key={phase} style={{ borderBottom: '1px solid var(--border)' }}>
+              <div key={phase} className={i === 0 ? 'mt-3' : 'mt-5'}>
+                {/* Section header */}
                 <button
                   onClick={() => toggle(phase)}
-                  className="w-full flex items-center justify-between py-3"
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl"
+                  style={{ background: 'var(--surface)' }}
                 >
                   <span className="text-base font-semibold" style={{ color: 'var(--text)' }}>
                     {PHASE_LABEL[phase] ?? phase}
                   </span>
                   <div className="flex items-center gap-2.5">
-                    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{items.length}</span>
+                    <span className="text-xs px-1.5 py-0.5 rounded-md" style={{ background: 'var(--surface-raised)', color: 'var(--text-muted)' }}>
+                      {items.length}
+                    </span>
                     <Chevron open={isOpen} />
                   </div>
                 </button>
 
+                {/* Items */}
                 {isOpen && (
-                  <div>
+                  <div className="mt-1">
                     {items.map((u) => {
                       const cost = formatCost(u.estimated_cost_low, u.estimated_cost_high, u.actual_cost);
                       return (
                         <button
                           key={u.id}
                           onClick={() => { setSelected(u); setSheetOpen(true); }}
-                          className="w-full text-left py-3 flex items-start gap-3"
-                          style={{ borderTop: '1px solid var(--border)' }}
+                          className="w-full text-left py-3 px-1 flex items-start gap-3"
+                          style={{ borderBottom: '1px solid var(--border)' }}
                         >
                           <div className="flex-1 min-w-0">
-                            <div className="text-sm font-medium" style={{ color: 'var(--text)' }}>
+                            <div className="text-sm" style={{ color: 'var(--text)' }}>
                               {u.name}
                             </div>
                             {cost && (

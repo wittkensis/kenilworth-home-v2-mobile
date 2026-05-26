@@ -149,36 +149,39 @@ function RemindersTab({
 
   return (
     <div>
-      {SEASON_ORDER.map((season) => {
+      {SEASON_ORDER.map((season, i) => {
         const items = grouped[season];
         if (items.length === 0) return null;
         const isOpen = openSeasons.has(season);
         return (
-          <div key={season} style={{ borderBottom: '1px solid var(--border)' }}>
+          <div key={season} className={i === 0 ? 'mt-1' : 'mt-5'}>
             <button
               onClick={() => toggle(season)}
-              className="w-full flex items-center justify-between py-3"
+              className="w-full flex items-center justify-between px-4 py-3 rounded-xl"
+              style={{ background: 'var(--surface)' }}
             >
               <span className="text-base font-semibold" style={{ color: 'var(--text)' }}>
                 {SEASON_LABELS[season]}
               </span>
               <div className="flex items-center gap-2.5">
-                <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{items.length}</span>
+                <span className="text-xs px-1.5 py-0.5 rounded-md" style={{ background: 'var(--surface-raised)', color: 'var(--text-muted)' }}>
+                  {items.length}
+                </span>
                 <Chevron open={isOpen} />
               </div>
             </button>
 
             {isOpen && (
-              <div>
+              <div className="mt-1">
                 {items.map((r) => (
                   <button
                     key={r.id}
                     onClick={() => onOpen(r)}
-                    className="w-full text-left py-3 flex items-center gap-3"
-                    style={{ borderTop: '1px solid var(--border)' }}
+                    className="w-full text-left py-3 px-1 flex items-center gap-3"
+                    style={{ borderBottom: '1px solid var(--border)' }}
                   >
                     <div className="flex-1 min-w-0">
-                      <div className="text-sm font-medium" style={{ color: 'var(--text)' }}>{r.name}</div>
+                      <div className="text-sm" style={{ color: 'var(--text)' }}>{r.name}</div>
                       {r.season_position && (
                         <div className="text-xs mt-0.5 capitalize" style={{ color: 'var(--text-muted)' }}>
                           {r.season_position} of {SEASON_LABELS[r.season].toLowerCase()}

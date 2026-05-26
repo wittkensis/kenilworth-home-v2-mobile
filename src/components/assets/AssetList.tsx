@@ -74,25 +74,28 @@ export default function AssetList({
             No assets yet. Tap + to add one.
           </p>
         ) : (
-          Object.entries(grouped).map(([group, items]) => {
+          Object.entries(grouped).map(([group, items], i) => {
             const isOpen = openGroups.has(group);
             return (
-              <div key={group} style={{ borderBottom: '1px solid var(--border)' }}>
+              <div key={group} className={i === 0 ? 'mt-3' : 'mt-5'}>
                 <button
                   onClick={() => toggle(group)}
-                  className="w-full flex items-center justify-between py-3"
+                  className="w-full flex items-center justify-between px-4 py-3 rounded-xl"
+                  style={{ background: 'var(--surface)' }}
                 >
                   <span className="text-base font-semibold" style={{ color: 'var(--text)' }}>
                     {group}
                   </span>
                   <div className="flex items-center gap-2.5">
-                    <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{items.length}</span>
+                    <span className="text-xs px-1.5 py-0.5 rounded-md" style={{ background: 'var(--surface-raised)', color: 'var(--text-muted)' }}>
+                      {items.length}
+                    </span>
                     <Chevron open={isOpen} />
                   </div>
                 </button>
 
                 {isOpen && (
-                  <div>
+                  <div className="mt-1">
                     {items.map((a) => {
                       const wb = a.warranty_status ? WARRANTY_BADGE[a.warranty_status] : null;
                       const sub = [a.area_item_name, a.brand, a.model].filter(Boolean).join(' · ');
@@ -100,11 +103,11 @@ export default function AssetList({
                         <button
                           key={a.id}
                           onClick={() => { setSelected(a); setSheetOpen(true); }}
-                          className="w-full text-left py-3 flex items-center gap-3"
-                          style={{ borderTop: '1px solid var(--border)' }}
+                          className="w-full text-left py-3 px-1 flex items-center gap-3"
+                          style={{ borderBottom: '1px solid var(--border)' }}
                         >
                           <div className="flex-1 min-w-0">
-                            <div className="text-sm font-medium truncate" style={{ color: 'var(--text)' }}>
+                            <div className="text-sm truncate" style={{ color: 'var(--text)' }}>
                               {a.name}
                             </div>
                             {sub && (
