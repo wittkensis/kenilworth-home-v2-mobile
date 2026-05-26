@@ -16,6 +16,7 @@ export type AssetRow = {
   area_item_id: number | null;
   area_group_name: string | null;
   area_item_name: string | null;
+  resolved_area_group_id: number | null;
   warranty_status: 'active' | 'expiring' | 'expired' | null;
 };
 
@@ -29,6 +30,7 @@ export async function getAssets(): Promise<AssetRow[]> {
       a.id, a.name, a.brand, a.model, a.purchase_date, a.warranty_expires,
       a.manual_url, a.notes, a.area_group_id, a.area_item_id,
       ag.name as area_group_name, ai.name as area_item_name,
+      ag.id as resolved_area_group_id,
       CASE
         WHEN a.warranty_expires IS NULL THEN NULL
         WHEN date(a.warranty_expires) < date('now') THEN 'expired'
@@ -36,8 +38,8 @@ export async function getAssets(): Promise<AssetRow[]> {
         ELSE 'active'
       END as warranty_status
     FROM assets a
-    LEFT JOIN area_groups ag ON a.area_group_id = ag.id
     LEFT JOIN area_items ai ON a.area_item_id = ai.id
+    LEFT JOIN area_groups ag ON COALESCE(a.area_group_id, ai.group_id) = ag.id
     ORDER BY ag.name NULLS LAST, a.name
   `).all() as AssetRow[];
 }

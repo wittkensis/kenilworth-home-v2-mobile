@@ -14,7 +14,7 @@ type Props = {
 };
 
 export default function AssetSheet({ asset, areaGroups, areaItems, open, onClose }: Props) {
-  const [selectedGroupId, setSelectedGroupId] = useState(asset?.area_group_id?.toString() ?? '');
+  const [selectedGroupId, setSelectedGroupId] = useState(asset?.resolved_area_group_id?.toString() ?? '');
   const [isPending, startTransition] = useTransition();
 
   const filteredItems = areaItems.filter(
