@@ -17,6 +17,14 @@ const SEASON_LABELS: Record<Season, string> = {
 
 const SEASON_ORDER: Season[] = ['spring', 'summer', 'fall', 'winter', 'year-round'];
 
+function getCurrentSeason(): Season {
+  const m = new Date().getMonth() + 1;
+  if (m >= 3 && m <= 5) return 'spring';
+  if (m >= 6 && m <= 8) return 'summer';
+  if (m >= 9 && m <= 11) return 'fall';
+  return 'winter';
+}
+
 type Props = {
   reminders: RoutineReminder[];
   logEntries: MaintenanceLogEntry[];
@@ -24,6 +32,22 @@ type Props = {
 };
 
 type Tab = 'reminders' | 'log';
+
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="13" height="13" viewBox="0 0 16 16" fill="none"
+      style={{
+        color: 'var(--text-muted)',
+        flexShrink: 0,
+        transform: open ? 'rotate(90deg)' : 'none',
+        transition: 'transform 0.15s',
+      }}
+    >
+      <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
 
 export default function MaintenanceView({ reminders, logEntries, assets }: Props) {
   const [tab, setTab] = useState<Tab>('reminders');
@@ -44,7 +68,7 @@ export default function MaintenanceView({ reminders, logEntries, assets }: Props
 
   return (
     <>
-      <div className="flex items-center justify-between px-5 pt-5 pb-3">
+      <div className="flex items-center justify-between px-5 pt-5 pb-4">
         <h1 className="text-xl font-semibold" style={{ color: 'var(--text)' }}>Maintenance</h1>
         <button
           onClick={tab === 'reminders' ? openNewReminder : openNewLog}
@@ -55,7 +79,6 @@ export default function MaintenanceView({ reminders, logEntries, assets }: Props
         </button>
       </div>
 
-      {/* Tabs */}
       <div className="px-4 mb-4">
         <div className="flex rounded-xl overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
           {(['reminders', 'log'] as Tab[]).map((t) => (
@@ -104,6 +127,17 @@ function RemindersTab({
   grouped: Record<Season, RoutineReminder[]>;
   onOpen: (r: RoutineReminder) => void;
 }) {
+  const [openSeasons, setOpenSeasons] = useState<Set<Season>>(new Set([getCurrentSeason()]));
+
+  function toggle(s: Season) {
+    setOpenSeasons((prev) => {
+      const next = new Set(prev);
+      if (next.has(s)) next.delete(s);
+      else next.add(s);
+      return next;
+    });
+  }
+
   const hasAny = SEASON_ORDER.some((s) => grouped[s].length > 0);
   if (!hasAny) {
     return (
@@ -114,37 +148,50 @@ function RemindersTab({
   }
 
   return (
-    <div className="space-y-5">
+    <div>
       {SEASON_ORDER.map((season) => {
         const items = grouped[season];
         if (items.length === 0) return null;
+        const isOpen = openSeasons.has(season);
         return (
-          <div key={season}>
-            <h2 className="text-xs uppercase tracking-wider font-medium mb-2 px-1" style={{ color: 'var(--text-muted)' }}>
-              {SEASON_LABELS[season]}
-            </h2>
-            <div className="space-y-2">
-              {items.map((r) => (
-                <button
-                  key={r.id}
-                  onClick={() => onOpen(r)}
-                  className="w-full text-left rounded-xl px-4 py-3 flex items-center gap-3"
-                  style={{ background: 'var(--surface)' }}
-                >
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium" style={{ color: 'var(--text)' }}>{r.name}</div>
-                    {r.season_position && (
-                      <div className="text-xs mt-0.5 capitalize" style={{ color: 'var(--text-muted)' }}>
-                        {r.season_position} of {SEASON_LABELS[r.season].toLowerCase()}
-                      </div>
-                    )}
-                  </div>
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ color: 'var(--border)', flexShrink: 0 }}>
-                    <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </button>
-              ))}
-            </div>
+          <div key={season} style={{ borderBottom: '1px solid var(--border)' }}>
+            <button
+              onClick={() => toggle(season)}
+              className="w-full flex items-center justify-between py-3"
+            >
+              <span className="text-xs uppercase tracking-wider font-medium" style={{ color: 'var(--text-muted)' }}>
+                {SEASON_LABELS[season]}
+              </span>
+              <div className="flex items-center gap-2.5">
+                <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{items.length}</span>
+                <Chevron open={isOpen} />
+              </div>
+            </button>
+
+            {isOpen && (
+              <div>
+                {items.map((r) => (
+                  <button
+                    key={r.id}
+                    onClick={() => onOpen(r)}
+                    className="w-full text-left py-3 flex items-center gap-3"
+                    style={{ borderTop: '1px solid var(--border)' }}
+                  >
+                    <div className="flex-1 min-w-0">
+                      <div className="text-sm font-medium" style={{ color: 'var(--text)' }}>{r.name}</div>
+                      {r.season_position && (
+                        <div className="text-xs mt-0.5 capitalize" style={{ color: 'var(--text-muted)' }}>
+                          {r.season_position} of {SEASON_LABELS[r.season].toLowerCase()}
+                        </div>
+                      )}
+                    </div>
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style={{ color: 'var(--border)', flexShrink: 0 }}>
+                      <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         );
       })}
@@ -162,13 +209,13 @@ function LogTab({ entries, onOpen }: { entries: MaintenanceLogEntry[]; onOpen: (
   }
 
   return (
-    <div className="space-y-2">
+    <div>
       {entries.map((e) => (
         <button
           key={e.id}
           onClick={() => onOpen(e)}
-          className="w-full text-left rounded-xl px-4 py-3 flex items-start gap-3"
-          style={{ background: 'var(--surface)' }}
+          className="w-full text-left py-3 flex items-start gap-3"
+          style={{ borderBottom: '1px solid var(--border)' }}
         >
           <div className="flex-1 min-w-0">
             <div className="flex items-baseline justify-between gap-2">
@@ -183,8 +230,8 @@ function LogTab({ entries, onOpen }: { entries: MaintenanceLogEntry[]; onOpen: (
               ].filter(Boolean).join(' · ') || 'No details'}
             </div>
           </div>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ color: 'var(--border)', flexShrink: 0, marginTop: 2 }}>
-            <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style={{ color: 'var(--border)', flexShrink: 0, marginTop: 2 }}>
+            <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
       ))}
