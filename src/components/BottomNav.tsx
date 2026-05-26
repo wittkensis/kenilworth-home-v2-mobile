@@ -126,7 +126,7 @@ export default function BottomNav() {
               key={tab.href}
               href={tab.href}
               onClick={() => setMoreOpen(false)}
-              className="flex-1 flex flex-col items-center gap-1 pt-3 pb-1"
+              className="flex-1 flex flex-col items-center gap-1 pt-3 pb-1 active:opacity-70"
               style={{ color: active ? 'var(--accent)' : 'var(--text-muted)' }}
             >
               {tab.icon(active)}
@@ -138,7 +138,7 @@ export default function BottomNav() {
         {/* More button */}
         <button
           onClick={() => setMoreOpen((v) => !v)}
-          className="flex-1 flex flex-col items-center gap-1 pt-3 pb-1"
+          className="flex-1 flex flex-col items-center gap-1 pt-3 pb-1 active:opacity-70"
           style={{ color: moreActive || moreOpen ? 'var(--accent)' : 'var(--text-muted)' }}
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={moreActive || moreOpen ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">

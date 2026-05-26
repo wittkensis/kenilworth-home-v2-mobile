@@ -7,9 +7,10 @@ type SheetProps = {
   onClose: () => void;
   title: string;
   children: React.ReactNode;
+  noPadding?: boolean;
 };
 
-export default function Sheet({ open, onClose, title, children }: SheetProps) {
+export default function Sheet({ open, onClose, title, children, noPadding }: SheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -27,7 +28,7 @@ export default function Sheet({ open, onClose, title, children }: SheetProps) {
     <div className="fixed inset-0 z-50 flex flex-col justify-end">
       {/* Backdrop */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 backdrop-blur-sm"
         style={{ background: 'rgba(0,0,0,0.6)' }}
         onClick={onClose}
       />
@@ -39,6 +40,7 @@ export default function Sheet({ open, onClose, title, children }: SheetProps) {
         style={{
           background: 'var(--surface)',
           maxHeight: '92vh',
+          animation: 'slide-up 250ms cubic-bezier(0.32,0.72,0,1) forwards',
         }}
       >
         {/* Handle */}
@@ -66,7 +68,7 @@ export default function Sheet({ open, onClose, title, children }: SheetProps) {
         </div>
 
         {/* Content */}
-        <div className="overflow-y-auto flex-1 px-5 py-4 pb-safe">
+        <div className={noPadding ? 'overflow-y-auto flex-1' : 'overflow-y-auto flex-1 px-5 py-4 pb-safe'}>
           {children}
         </div>
       </div>

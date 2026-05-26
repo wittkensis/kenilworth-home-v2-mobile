@@ -44,86 +44,77 @@ export default function LogSheet({ entry, assets, open, onClose }: Props) {
   const today = new Date().toISOString().split('T')[0];
 
   return (
-    <Sheet open={open} onClose={handleClose} title={entry ? entry.name : 'Log Maintenance'}>
-      <form action={handleSave} className="space-y-4">
-        <Field label="What was done">
-          <input
-            name="name"
-            defaultValue={entry?.name ?? ''}
-            required
-            placeholder="e.g. HVAC tune-up"
-            className="w-full px-3 py-2.5 rounded-xl text-sm"
-            style={{ background: 'var(--surface-raised)', color: 'var(--text)' }}
-          />
-        </Field>
-
-        <Field label="Date">
-          <input
-            name="date"
-            type="date"
-            defaultValue={entry?.date ?? today}
-            required
-            className="w-full px-3 py-2.5 rounded-xl text-sm"
-            style={{ background: 'var(--surface-raised)', color: 'var(--text)' }}
-          />
-        </Field>
-
-        <Field label="Asset (optional)">
-          <select
-            name="asset_id"
-            defaultValue={entry?.asset_id?.toString() ?? ''}
-            className="w-full px-3 py-2.5 rounded-xl text-sm"
-            style={{ background: 'var(--surface-raised)', color: 'var(--text)' }}
-          >
-            <option value="">No specific asset</option>
-            {assets.map((a) => (
-              <option key={a.id} value={a.id}>
-                {a.name}{a.area_item_name ? ` (${a.area_item_name})` : ''}
-              </option>
-            ))}
-          </select>
-        </Field>
-
-        <div className="grid grid-cols-2 gap-3">
-          <Field label="Contractor (optional)">
+    <Sheet open={open} onClose={handleClose} title={entry ? entry.name : 'Log Maintenance'} noPadding>
+      <form action={handleSave} className="flex flex-col h-full">
+        <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 overscroll-contain">
+          <Field label="What was done">
             <input
-              name="contractor"
-              defaultValue={entry?.contractor ?? ''}
-              placeholder="e.g. ABC Heating"
-              className="w-full px-3 py-2.5 rounded-xl text-sm"
-              style={{ background: 'var(--surface-raised)', color: 'var(--text)' }}
+              name="name"
+              defaultValue={entry?.name ?? ''}
+              required
+              placeholder="e.g. HVAC tune-up"
             />
           </Field>
-          <Field label="Cost (optional)">
+
+          <Field label="Date">
             <input
-              name="cost"
-              type="number"
-              min="0"
-              step="0.01"
-              defaultValue={entry?.cost ?? ''}
-              placeholder="$0.00"
-              className="w-full px-3 py-2.5 rounded-xl text-sm"
-              style={{ background: 'var(--surface-raised)', color: 'var(--text)' }}
+              name="date"
+              type="date"
+              defaultValue={entry?.date ?? today}
+              required
+            />
+          </Field>
+
+          <Field label="Asset (optional)">
+            <select
+              name="asset_id"
+              defaultValue={entry?.asset_id?.toString() ?? ''}
+            >
+              <option value="">No specific asset</option>
+              {assets.map((a) => (
+                <option key={a.id} value={a.id}>
+                  {a.name}{a.area_item_name ? ` (${a.area_item_name})` : ''}
+                </option>
+              ))}
+            </select>
+          </Field>
+
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Contractor (optional)">
+              <input
+                name="contractor"
+                defaultValue={entry?.contractor ?? ''}
+                placeholder="e.g. ABC Heating"
+              />
+            </Field>
+            <Field label="Cost (optional)">
+              <input
+                name="cost"
+                type="number"
+                min="0"
+                step="0.01"
+                defaultValue={entry?.cost ?? ''}
+                placeholder="$0.00"
+              />
+            </Field>
+          </div>
+
+          <Field label="Notes (optional)">
+            <textarea
+              name="notes"
+              defaultValue={entry?.notes ?? ''}
+              rows={3}
+              placeholder="Any details..."
             />
           </Field>
         </div>
-
-        <Field label="Notes (optional)">
-          <textarea
-            name="notes"
-            defaultValue={entry?.notes ?? ''}
-            rows={3}
-            placeholder="Any details..."
-            className="w-full px-3 py-2.5 rounded-xl text-sm resize-none"
-            style={{ background: 'var(--surface-raised)', color: 'var(--text)' }}
+        <div className="shrink-0 px-5 py-4 border-t" style={{ borderColor: 'var(--border)' }}>
+          <FormActions
+            onCancel={handleClose}
+            onDelete={entry?.id ? handleDelete : undefined}
+            pending={isPending}
           />
-        </Field>
-
-        <FormActions
-          onCancel={handleClose}
-          onDelete={entry?.id ? handleDelete : undefined}
-          pending={isPending}
-        />
+        </div>
       </form>
     </Sheet>
   );

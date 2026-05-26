@@ -60,67 +60,70 @@ export default function AssetSheet({ asset, areaGroups, areaItems, open, onClose
   const title = asset ? asset.name : 'New Asset';
 
   return (
-    <Sheet open={open} onClose={handleClose} title={title}>
-      <form action={handleSave} className="space-y-4">
-        <Field label="Name">
-          <input name="name" defaultValue={asset?.name ?? ''} required placeholder="e.g. Furnace" />
-        </Field>
-
-        <div className="grid grid-cols-2 gap-3">
-          <Field label="Brand">
-            <input name="brand" defaultValue={asset?.brand ?? ''} placeholder="e.g. Lennox" />
+    <Sheet open={open} onClose={handleClose} title={title} noPadding>
+      <form action={handleSave} className="flex flex-col h-full">
+        <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 overscroll-contain">
+          <Field label="Name">
+            <input name="name" defaultValue={asset?.name ?? ''} required placeholder="e.g. Furnace" />
           </Field>
-          <Field label="Model">
-            <input name="model" defaultValue={asset?.model ?? ''} placeholder="Optional" />
-          </Field>
-        </div>
 
-        <Field label="Location">
-          <select
-            name="area_group_id"
-            value={selectedGroupId}
-            onChange={handleGroupChange}
-          >
-            <option value="">No area</option>
-            {areaGroups.map((g) => (
-              <option key={g.id} value={g.id}>{g.name}</option>
-            ))}
-          </select>
-        </Field>
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Brand">
+              <input name="brand" defaultValue={asset?.brand ?? ''} placeholder="e.g. Lennox" />
+            </Field>
+            <Field label="Model">
+              <input name="model" defaultValue={asset?.model ?? ''} placeholder="Optional" />
+            </Field>
+          </div>
 
-        {selectedGroupId && filteredItems.length > 0 && (
-          <Field label="Sub-area">
-            <select name="area_item_id" defaultValue={asset?.area_item_id?.toString() ?? ''}>
-              <option value="">None</option>
-              {filteredItems.map((i) => (
-                <option key={i.id} value={i.id}>{i.name}</option>
+          <Field label="Location">
+            <select
+              name="area_group_id"
+              value={selectedGroupId}
+              onChange={handleGroupChange}
+            >
+              <option value="">No area</option>
+              {areaGroups.map((g) => (
+                <option key={g.id} value={g.id}>{g.name}</option>
               ))}
             </select>
           </Field>
-        )}
 
-        <div className="grid grid-cols-2 gap-3">
-          <Field label="Purchase Date">
-            <input name="purchase_date" type="date" defaultValue={asset?.purchase_date ?? ''} />
+          {selectedGroupId && filteredItems.length > 0 && (
+            <Field label="Sub-area">
+              <select name="area_item_id" defaultValue={asset?.area_item_id?.toString() ?? ''}>
+                <option value="">None</option>
+                {filteredItems.map((i) => (
+                  <option key={i.id} value={i.id}>{i.name}</option>
+                ))}
+              </select>
+            </Field>
+          )}
+
+          <div className="grid grid-cols-2 gap-3">
+            <Field label="Purchase Date">
+              <input name="purchase_date" type="date" defaultValue={asset?.purchase_date ?? ''} />
+            </Field>
+            <Field label="Warranty Expires">
+              <input name="warranty_expires" type="date" defaultValue={asset?.warranty_expires ?? ''} />
+            </Field>
+          </div>
+
+          <Field label="Manual URL">
+            <input name="manual_url" type="url" defaultValue={asset?.manual_url ?? ''} placeholder="https://..." />
           </Field>
-          <Field label="Warranty Expires">
-            <input name="warranty_expires" type="date" defaultValue={asset?.warranty_expires ?? ''} />
+
+          <Field label="Notes">
+            <textarea name="notes" defaultValue={asset?.notes ?? ''} placeholder="Optional notes" />
           </Field>
         </div>
-
-        <Field label="Manual URL">
-          <input name="manual_url" type="url" defaultValue={asset?.manual_url ?? ''} placeholder="https://..." />
-        </Field>
-
-        <Field label="Notes">
-          <textarea name="notes" defaultValue={asset?.notes ?? ''} placeholder="Optional notes" />
-        </Field>
-
-        <FormActions
-          onCancel={handleClose}
-          onDelete={asset?.id ? handleDelete : undefined}
-          pending={isPending}
-        />
+        <div className="shrink-0 px-5 py-4 border-t" style={{ borderColor: 'var(--border)' }}>
+          <FormActions
+            onCancel={handleClose}
+            onDelete={asset?.id ? handleDelete : undefined}
+            pending={isPending}
+          />
+        </div>
       </form>
     </Sheet>
   );

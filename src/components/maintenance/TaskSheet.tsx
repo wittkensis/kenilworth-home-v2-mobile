@@ -74,9 +74,9 @@ export default function TaskSheet({ task, open, onClose }: Props) {
   }
 
   return (
-    <Sheet open={open} onClose={handleClose} title={title}>
+    <Sheet open={open} onClose={handleClose} title={title} noPadding>
       {!isNew && (
-        <div className="flex mb-4 rounded-lg overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
+        <div className="flex mx-5 mt-4 rounded-lg overflow-hidden" style={{ background: 'var(--surface-raised)' }}>
           {(['edit', 'log'] as const).map((t) => (
             <button
               key={t}
@@ -94,48 +94,51 @@ export default function TaskSheet({ task, open, onClose }: Props) {
       )}
 
       {tab === 'edit' ? (
-        <form action={handleSave} className="space-y-4">
-          <Field label="Task Name">
-            <input name="name" defaultValue={task?.name ?? ''} required placeholder="e.g. Clean gutters" />
-          </Field>
+        <form action={handleSave} className="flex flex-col h-full">
+          <div className="flex-1 overflow-y-auto px-5 py-4 space-y-4 overscroll-contain">
+            <Field label="Task Name">
+              <input name="name" defaultValue={task?.name ?? ''} required placeholder="e.g. Clean gutters" />
+            </Field>
 
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Frequency (days)">
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="Frequency (days)">
+                <input
+                  name="frequency_days"
+                  type="number"
+                  min="1"
+                  defaultValue={task?.frequency_days ?? 365}
+                  required
+                />
+              </Field>
+              <Field label="Label">
+                <input name="frequency_label" defaultValue={task?.frequency_label ?? ''} placeholder="e.g. Annual" />
+              </Field>
+            </div>
+
+            <Field label="Est. Minutes">
               <input
-                name="frequency_days"
+                name="estimated_minutes"
                 type="number"
-                min="1"
-                defaultValue={task?.frequency_days ?? 365}
-                required
+                min="0"
+                defaultValue={task?.estimated_minutes ?? ''}
+                placeholder="Optional"
               />
             </Field>
-            <Field label="Label">
-              <input name="frequency_label" defaultValue={task?.frequency_label ?? ''} placeholder="e.g. Annual" />
+
+            <Field label="Notes">
+              <textarea name="notes" defaultValue={task?.notes ?? ''} placeholder="Optional notes" />
             </Field>
           </div>
-
-          <Field label="Est. Minutes">
-            <input
-              name="estimated_minutes"
-              type="number"
-              min="0"
-              defaultValue={task?.estimated_minutes ?? ''}
-              placeholder="Optional"
+          <div className="shrink-0 px-5 py-4 border-t" style={{ borderColor: 'var(--border)' }}>
+            <FormActions
+              onCancel={handleClose}
+              onDelete={task?.id ? handleDelete : undefined}
+              pending={isPending}
             />
-          </Field>
-
-          <Field label="Notes">
-            <textarea name="notes" defaultValue={task?.notes ?? ''} placeholder="Optional notes" />
-          </Field>
-
-          <FormActions
-            onCancel={handleClose}
-            onDelete={task?.id ? handleDelete : undefined}
-            pending={isPending}
-          />
+          </div>
         </form>
       ) : (
-        <div className="space-y-4">
+        <div className="overflow-y-auto px-5 py-4 space-y-4 overscroll-contain">
           {/* Log new completion */}
           <div className="rounded-xl p-4 space-y-3" style={{ background: 'var(--surface-raised)' }}>
             <p className="text-sm font-medium" style={{ color: 'var(--text)' }}>Log completion</p>
@@ -157,8 +160,8 @@ export default function TaskSheet({ task, open, onClose }: Props) {
             <button
               onClick={handleLog}
               disabled={isPending}
-              className="w-full py-3 rounded-xl text-sm font-semibold"
-              style={{ background: 'var(--success)', color: '#E5E0D8', opacity: isPending ? 0.6 : 1 }}
+              className="w-full py-3 rounded-xl text-sm font-semibold active:scale-[0.98] transition-transform disabled:opacity-50"
+              style={{ background: 'var(--success)', color: '#E5E0D8' }}
             >
               {isPending ? 'Logging...' : 'Mark Complete'}
             </button>
