@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (pathname === '/login') return NextResponse.next();
+  if (pathname === '/login' || pathname.startsWith('/api/focus')) return NextResponse.next();
 
   const authCookie = request.cookies.get('auth')?.value;
   const expectedToken = process.env.AUTH_TOKEN;
