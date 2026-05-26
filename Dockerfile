@@ -26,7 +26,7 @@ RUN adduser --system --uid 1001 nextjs
 # Copy standalone build
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
-RUN mkdir -p ./public
+COPY --from=builder /app/public ./public
 
 # Copy seed data
 COPY --from=builder /app/data ./data-seed
