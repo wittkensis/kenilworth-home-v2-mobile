@@ -5,6 +5,12 @@ export const metadata: Metadata = {
   title: 'Kenilworth Home',
   description: 'Home management',
   manifest: '/manifest.json',
+  // Launch as a standalone web app from the iOS home screen.
+  appleWebApp: {
+    capable: true,
+    title: 'Home',
+    statusBarStyle: 'black-translucent',
+  },
 };
 
 export const viewport: Viewport = {
