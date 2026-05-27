@@ -327,31 +327,61 @@ a {
 }
 
 .page-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   padding:
     max(env(safe-area-inset-top, 0px), 16px)
     20px
     16px;
+  background: var(--bg);
+  border-bottom: 1px solid transparent;
+  transition:
+    padding       150ms ease,
+    background    150ms ease,
+    border-color  150ms ease;
   flex-shrink: 0;
 }
 
-/* Inner spacer for breathing room below safe area */
+/* Inner spacer — gives the large title breathing room */
 .page-header::after {
   content: '';
   display: block;
   height: 32px;
+  transition: height 150ms ease;
 }
 
-/* Override: when you want a tight header with no extra height */
+/* Condensed state — triggered by JS when page has scrolled */
+.page-header--condensed {
+  padding-top:    max(env(safe-area-inset-top, 0px), 10px);
+  padding-bottom: 10px;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom-color: var(--border);
+}
+
+.page-header--condensed::after {
+  height: 0;
+}
+
+.page-header--condensed .page-title,
+.page-header--condensed .domain-title {
+  font-size: 1.125rem;
+}
+
+/* Override: compact variant with tighter spacing */
 .page-header--compact::after {
   height: 12px;
 }
 
 .page-title {
   font-family: var(--font-heading);
-  font-size: 1.875rem; /* 30px */
+  font-size: 1.875rem;
   font-weight: 400;
   color: var(--accent);
   line-height: 1.2;
+  transition: font-size 150ms ease;
 }
 
 .page-divider {
@@ -515,10 +545,12 @@ a {
 .row {
   display: flex;
   align-items: center;
+  width: 100%;
   padding: 10px 20px;
   gap: 12px;
   border-bottom: 1px solid var(--border);
   min-height: 44px;
+  text-align: left;
 }
 
 .row--tappable {
@@ -576,7 +608,7 @@ a {
 .sheet-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 50;
+  z-index: 60;   /* above bottom nav (50) and more menu (50) */
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
