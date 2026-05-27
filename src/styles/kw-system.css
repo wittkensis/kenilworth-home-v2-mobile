@@ -563,6 +563,15 @@ a {
   opacity: 0.7;
 }
 
+/* Empty section (no open to-dos) — recede the pill so it sits back visually */
+.section-header--empty {
+  background: color-mix(in srgb, var(--surface) 40%, transparent);
+}
+
+.section-header--empty .section-header-label {
+  opacity: 0.55;
+}
+
 .section-header-label {
   font-size: 1rem;
   font-weight: 600;
