@@ -32,5 +32,18 @@ export async function GET(req: NextRequest) {
     LIMIT 5
   `).all();
 
-  return NextResponse.json({ reminders, recentLog });
+  // Upgrades for Focus's Home tab. Include all non-cancelled phases so that
+  // a Focus section linked to an upgrade can show its current phase even
+  // after it leaves planning/in_progress.
+  const upgrades = db.prepare(`
+    SELECT id, name, phase, priority
+    FROM upgrades
+    WHERE phase != 'cancelled'
+    ORDER BY
+      CASE phase WHEN 'in_progress' THEN 1 WHEN 'planning' THEN 2 WHEN 'idea' THEN 3 WHEN 'completed' THEN 4 ELSE 5 END,
+      CASE priority WHEN 'urgent' THEN 1 WHEN 'high' THEN 2 WHEN 'medium' THEN 3 WHEN 'low' THEN 4 ELSE 5 END,
+      name
+  `).all();
+
+  return NextResponse.json({ reminders, recentLog, upgrades });
 }
