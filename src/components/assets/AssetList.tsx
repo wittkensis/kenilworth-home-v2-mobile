@@ -76,21 +76,12 @@ export default function AssetList({
               <div key={group} style={{ marginBottom: '12px' }}>
                 <button
                   onClick={() => toggle(group)}
-                  className="group-card"
-                  style={{ marginBottom: '4px' }}
+                  className={`section-header section-header--interactive${isOpen ? ' section-header--open' : ''}`}
                 >
-                  <span className="group-card-label">{group}</span>
+                  <span className="section-header-label">{group}</span>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                    <span className="group-card-count">{items.length}</span>
-                    <svg
-                      width="13" height="13" viewBox="0 0 16 16" fill="none"
-                      style={{
-                        color: 'var(--text-dim)',
-                        flexShrink: 0,
-                        transform: isOpen ? 'rotate(90deg)' : 'none',
-                        transition: 'transform 0.15s',
-                      }}
-                    >
+                    <span className="section-header-count">{items.length}</span>
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" className="section-header-chevron">
                       <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </div>

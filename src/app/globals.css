@@ -45,30 +45,6 @@ html, body {
   margin-bottom: 32px;
 }
 
-/* Section group cards used in list views (collapsible sections) */
-.group-card {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  border-radius: var(--radius-xl);
-  background: var(--surface);
-}
-
-.group-card-label {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text);
-}
-
-.group-card-count {
-  font-size: 0.75rem;
-  padding: 2px 6px;
-  border-radius: var(--radius-sm);
-  background: var(--surface-raised);
-  color: var(--text-dim);
-}
 
 /* Task status badge — inline colored pill */
 .status-badge {
