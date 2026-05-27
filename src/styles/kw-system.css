@@ -444,6 +444,7 @@ a {
 }
 
 .bottom-nav-tab {
+  position: relative;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -452,22 +453,41 @@ a {
   padding-top: 12px;
   padding-bottom: 4px;
   color: var(--text-dim);
+  opacity: 0.85;
   transition: color var(--t-fast), opacity var(--t-fast);
   min-height: 44px;
 }
 
 .bottom-nav-tab:active {
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
+/* Active tab — accent color, full opacity, bold label, and a top indicator bar */
 .bottom-nav-tab.active {
   color: var(--accent);
+  opacity: 1;
+}
+
+.bottom-nav-tab.active::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+  background: var(--accent);
 }
 
 .bottom-nav-tab span {
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.02em;
+}
+
+.bottom-nav-tab.active span {
+  font-weight: 700;
 }
 
 /* More-menu popup card above nav */
