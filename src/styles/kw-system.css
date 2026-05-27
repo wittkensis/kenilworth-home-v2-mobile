@@ -394,6 +394,31 @@ a {
   transition: font-size 150ms ease;
 }
 
+/* Header title + actions row — title takes remaining space and truncates,
+   action buttons keep their size (icons must never be squished). */
+.page-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.page-header-row > .page-title,
+.page-header-row > .domain-title {
+  flex: 1;
+  min-width: 0;
+}
+
+.page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Safety net: any action control placed directly in a header keeps its size */
+.page-header button { flex-shrink: 0; }
+
 .page-divider {
   height: 1px;
   background: var(--border);
@@ -913,6 +938,7 @@ a {
   border-radius: 50%;
   background: var(--surface-raised);
   color: var(--text-dim);
+  flex-shrink: 0; /* never let an icon button get squished */
 }
 
 .btn-icon:active:not(:disabled) {
