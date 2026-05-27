@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
+import { initHaptics } from '@/lib/haptics';
 
 const POPUP_ANIM_MS = 180;
 
@@ -66,6 +67,7 @@ const moreTabs = [
 
 export default function BottomNav() {
   const pathname = usePathname();
+  useEffect(() => { initHaptics(); }, []);
   const [moreOpen, setMoreOpen] = useState(false);
   const [moreClosing, setMoreClosing] = useState(false);
 
