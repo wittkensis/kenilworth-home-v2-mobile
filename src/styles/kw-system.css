@@ -690,10 +690,14 @@ a {
   position: relative;
   background: var(--surface);
   border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  max-height: 92dvh;
+  /* Never full height (room at top for layering / nested sheets); shrink to
+     sit above the on-screen keyboard when --kb-inset is set. */
+  max-height: calc(92dvh - var(--kb-inset, 0px));
+  margin-bottom: var(--kb-inset, 0px);
   display: flex;
   flex-direction: column;
   animation: slide-up var(--t-spring) forwards;
+  transition: margin-bottom 200ms ease, max-height 200ms ease;
 }
 
 /* z-60 overlay sheet (sheet-on-sheet) */

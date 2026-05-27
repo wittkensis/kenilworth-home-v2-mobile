@@ -52,6 +52,34 @@ export function Sheet({ open = true, onClose, title, children, noPadding }: Shee
     return () => document.removeEventListener('keydown', onKey);
   }, [visible, triggerClose]);
 
+  // Mobile keyboard: lift the sheet above the on-screen keyboard while an
+  // input is focused, and revert when it closes. Uses the VisualViewport API.
+  useEffect(() => {
+    if (!visible) return;
+    const vv = typeof window !== 'undefined' ? window.visualViewport : null;
+    if (!vv) return;
+    const apply = () => {
+      const inset = Math.max(0, window.innerHeight - vv.height - vv.offsetTop);
+      sheetRef.current?.style.setProperty('--kb-inset', `${inset}px`);
+    };
+    vv.addEventListener('resize', apply);
+    vv.addEventListener('scroll', apply);
+    apply();
+    return () => {
+      vv.removeEventListener('resize', apply);
+      vv.removeEventListener('scroll', apply);
+      sheetRef.current?.style.removeProperty('--kb-inset');
+    };
+  }, [visible]);
+
+  // Keep the focused field visible above the keyboard.
+  function onFocusCapture(e: React.FocusEvent) {
+    const t = e.target as HTMLElement;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) {
+      setTimeout(() => t.scrollIntoView({ block: 'center', behavior: 'smooth' }), 250);
+    }
+  }
+
   function onHandleTouchStart(e: React.TouchEvent) {
     drag.current = { active: true, startY: e.touches[0].clientY, dy: 0 };
     if (sheetRef.current) {
@@ -92,7 +120,7 @@ export function Sheet({ open = true, onClose, title, children, noPadding }: Shee
   return (
     <div className={`sheet-backdrop${closing ? ' sheet-backdrop--closing' : ''}`}>
       <div className="sheet-backdrop-overlay" onClick={triggerClose} />
-      <div ref={sheetRef} className={`sheet-panel${closing ? ' sheet-panel--closing' : ''}`}>
+      <div ref={sheetRef} className={`sheet-panel${closing ? ' sheet-panel--closing' : ''}`} onFocusCapture={onFocusCapture}>
         <div
           className="sheet-handle"
           onTouchStart={onHandleTouchStart}
