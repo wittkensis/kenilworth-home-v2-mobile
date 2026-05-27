@@ -19,12 +19,17 @@ git push origin main
 
 | Field | Value |
 |-------|-------|
+| App UUID | `fzjdvrkwpftvgdvoutpqrkvw` |
 | Repo | `wittkensis/kenilworth-home-v2-mobile` |
 | Branch | `main` |
 | VPS | `76.13.102.88` |
 | URL | `home.ericwittke.com` |
 
-Note: Coolify app UUID not yet recorded — find in Coolify dashboard after first deploy.
+Manual deploy trigger (if the push webhook doesn't fire — it didn't on 2026-05-27):
+```bash
+curl -s -X POST -H "Authorization: Bearer 1|NwjnoGLmdEqtTR5YSI5NByst0SLZyeOWPpgKFRVwa1954ae1" \
+  "http://76.13.102.88:8000/api/v1/deploy?uuid=fzjdvrkwpftvgdvoutpqrkvw"
+```
 
 ## Required Env Vars
 
