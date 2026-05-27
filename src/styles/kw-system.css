@@ -148,6 +148,26 @@ a {
   to   { transform: scale(1)    translateY(0); }
 }
 
+@keyframes slide-down {
+  from { transform: translateY(0); }
+  to   { transform: translateY(100%); }
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+@keyframes popup-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)   scale(1); }
+}
+
+@keyframes popup-out {
+  from { opacity: 1; transform: translateY(0)   scale(1); }
+  to   { opacity: 0; transform: translateY(8px) scale(0.96); }
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -274,7 +294,7 @@ a {
   flex-shrink: 0;
 }
 
-.app-bottom-tab.active { color: var(--text); }
+.app-bottom-tab.active { color: var(--accent); }
 
 /* Utility icon sizes — for inline SVG icons */
 .icon-sm  { width: 16px; height: 16px; flex-shrink: 0; }
@@ -396,6 +416,12 @@ a {
   background: var(--surface-raised);
   border: 1px solid var(--border);
   box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
+  animation: popup-in 180ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+  transform-origin: bottom center;
+}
+
+.bottom-nav-more--closing {
+  animation: popup-out 180ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
 }
 
 .bottom-nav-more-item {
@@ -655,6 +681,8 @@ a {
   flex: 1;
   overflow: hidden;
   min-height: 0;
+  display: flex;         /* required so flex: 1 works on .form-fields inside */
+  flex-direction: column;
 }
 
 /* For simple non-form content that needs to scroll with padding */
@@ -701,6 +729,15 @@ a {
   padding: 16px 20px;
   border-top: 1px solid var(--border);
   padding-bottom: max(16px, env(safe-area-inset-bottom, 0px));
+}
+
+/* Closing state — plays slide-down, then component unmounts */
+.sheet-panel--closing {
+  animation: slide-down 280ms cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+.sheet-backdrop--closing .sheet-backdrop-overlay {
+  animation: fade-out 280ms ease forwards;
 }
 
 /* Scale-down parent when child overlay is open */
@@ -1114,13 +1151,15 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 0;
+  padding: 10px 4px;
   border-radius: var(--radius-xl);
   cursor: pointer;
   user-select: none;
   background: var(--surface-raised);
   border: 1px solid transparent;
   transition: background var(--t-fast), border-color var(--t-fast);
+  min-width: 0;       /* prevent grid column blowout */
+  overflow: hidden;
 }
 
 .pill input[type="radio"] {
@@ -1132,10 +1171,13 @@ a {
 }
 
 .pill-label {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   color: var(--text-dim);
   transition: color var(--t-fast), font-weight var(--t-fast);
   position: relative;
+  text-align: center;
+  line-height: 1.3;
+  word-break: break-word;
   z-index: 1;
 }
 

@@ -2,7 +2,9 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+
+const POPUP_ANIM_MS = 180;
 
 const primaryTabs = [
   {
@@ -65,32 +67,49 @@ const moreTabs = [
 export default function BottomNav() {
   const pathname = usePathname();
   const [moreOpen, setMoreOpen] = useState(false);
+  const [moreClosing, setMoreClosing] = useState(false);
 
   const moreActive = moreTabs.some((t) => pathname.startsWith(t.href));
 
+  const closeMore = useCallback(() => {
+    setMoreClosing(true);
+    setTimeout(() => {
+      setMoreOpen(false);
+      setMoreClosing(false);
+    }, POPUP_ANIM_MS);
+  }, []);
+
+  const toggleMore = useCallback(() => {
+    if (moreOpen) {
+      closeMore();
+    } else {
+      setMoreOpen(true);
+    }
+  }, [moreOpen, closeMore]);
+
   return (
     <>
-      {/* Dismiss backdrop for more menu */}
+      {/* Dismiss backdrop */}
       {moreOpen && (
         <div
           style={{ position: 'fixed', inset: 0, zIndex: 40 }}
-          onClick={() => setMoreOpen(false)}
+          onClick={closeMore}
         />
       )}
 
       {/* More popup card */}
       {moreOpen && (
         <div
-          className="bottom-nav-more"
+          className={`bottom-nav-more${moreClosing ? ' bottom-nav-more--closing' : ''}`}
           style={{ bottom: 'calc(max(12px, env(safe-area-inset-bottom)) + 64px)' }}
         >
-          {moreTabs.map((tab, i) => {
+          {moreTabs.map((tab) => {
             const active = pathname.startsWith(tab.href);
             return (
               <Link
                 key={tab.href}
                 href={tab.href}
-                onClick={() => setMoreOpen(false)}
+                onClick={closeMore}
                 className={`bottom-nav-more-item${active ? ' active' : ''}`}
               >
                 {tab.icon(active)}
@@ -109,7 +128,7 @@ export default function BottomNav() {
             <Link
               key={tab.href}
               href={tab.href}
-              onClick={() => setMoreOpen(false)}
+              onClick={closeMore}
               className={`bottom-nav-tab${active ? ' active' : ''}`}
             >
               {tab.icon(active)}
@@ -120,7 +139,7 @@ export default function BottomNav() {
 
         {/* More button */}
         <button
-          onClick={() => setMoreOpen((v) => !v)}
+          onClick={toggleMore}
           className={`bottom-nav-tab${moreActive || moreOpen ? ' active' : ''}`}
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={moreActive || moreOpen ? 2 : 1.5} strokeLinecap="round" strokeLinejoin="round">
