@@ -96,25 +96,27 @@ export default function RoutineView({ reminders }: { reminders: RoutineReminder[
                   </div>
                 </button>
 
-                {isOpen && items.map((r) => (
-                  <button
-                    key={r.id}
-                    onClick={() => { setSelected(r); setSheetOpen(true); }}
-                    className="row row--tappable"
-                  >
-                    <div className="row-content">
-                      <span className="row-primary">{r.name}</span>
-                      {r.season_position && (
-                        <span className="row-secondary" style={{ textTransform: 'capitalize' }}>
-                          {r.season_position} of {SEASON_LABELS[r.season].toLowerCase()}
-                        </span>
-                      )}
-                    </div>
-                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style={{ color: 'var(--border)', flexShrink: 0 }}>
-                      <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </button>
-                ))}
+                <div style={{ overflow: 'hidden', maxHeight: isOpen ? '4000px' : '0', transition: 'max-height 250ms ease' }}>
+                  {items.map((r) => (
+                    <button
+                      key={r.id}
+                      onClick={() => { setSelected(r); setSheetOpen(true); }}
+                      className="row row--tappable"
+                    >
+                      <div className="row-content">
+                        <span className="row-primary">{r.name}</span>
+                        {r.season_position && (
+                          <span className="row-secondary" style={{ textTransform: 'capitalize' }}>
+                            {r.season_position} of {SEASON_LABELS[r.season].toLowerCase()}
+                          </span>
+                        )}
+                      </div>
+                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style={{ color: 'var(--border)', flexShrink: 0 }}>
+                        <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+                  ))}
+                </div>
               </div>
             );
           })

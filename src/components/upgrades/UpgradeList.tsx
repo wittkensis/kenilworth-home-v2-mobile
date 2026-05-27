@@ -95,24 +95,26 @@ export default function UpgradeList({ upgrades }: { upgrades: UpgradeRow[] }) {
                   </div>
                 </button>
 
-                {isOpen && items.map((u) => {
-                  const cost = formatCost(u.estimated_cost_low, u.estimated_cost_high, u.actual_cost);
-                  return (
-                    <button
-                      key={u.id}
-                      onClick={() => { setSelected(u); setSheetOpen(true); }}
-                      className="row row--tappable"
-                    >
-                      <div className="row-content">
-                        <span className="row-primary">{u.name}</span>
-                        {cost && <span className="row-secondary">{cost}</span>}
-                      </div>
-                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style={{ color: 'var(--border)', flexShrink: 0 }}>
-                        <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </button>
-                  );
-                })}
+                <div style={{ overflow: 'hidden', maxHeight: isOpen ? '4000px' : '0', transition: 'max-height 250ms ease' }}>
+                  {items.map((u) => {
+                    const cost = formatCost(u.estimated_cost_low, u.estimated_cost_high, u.actual_cost);
+                    return (
+                      <button
+                        key={u.id}
+                        onClick={() => { setSelected(u); setSheetOpen(true); }}
+                        className="row row--tappable"
+                      >
+                        <div className="row-content">
+                          <span className="row-primary">{u.name}</span>
+                          {cost && <span className="row-secondary">{cost}</span>}
+                        </div>
+                        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style={{ color: 'var(--border)', flexShrink: 0 }}>
+                          <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             );
           })

@@ -96,29 +96,31 @@ export default function AssetList({
                   </div>
                 </button>
 
-                {isOpen && items.map((a) => {
-                  const sub = [a.area_item_name, a.brand, a.model].filter(Boolean).join(' · ');
-                  return (
-                    <button
-                      key={a.id}
-                      onClick={() => { setSelected(a); setSheetOpen(true); }}
-                      className="row row--tappable"
-                    >
-                      <div className="row-content">
-                        <span className="row-primary">{a.name}</span>
-                        {sub && <span className="row-secondary">{sub}</span>}
-                      </div>
-                      {a.warranty_status && WARRANTY_BADGE[a.warranty_status] && (
-                        <span className={WARRANTY_BADGE[a.warranty_status]}>
-                          {WARRANTY_LABEL[a.warranty_status]}
-                        </span>
-                      )}
-                      <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style={{ color: 'var(--border)', flexShrink: 0 }}>
-                        <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </button>
-                  );
-                })}
+                <div style={{ overflow: 'hidden', maxHeight: isOpen ? '4000px' : '0', transition: 'max-height 250ms ease' }}>
+                  {items.map((a) => {
+                    const sub = [a.area_item_name, a.brand, a.model].filter(Boolean).join(' · ');
+                    return (
+                      <button
+                        key={a.id}
+                        onClick={() => { setSelected(a); setSheetOpen(true); }}
+                        className="row row--tappable"
+                      >
+                        <div className="row-content">
+                          <span className="row-primary">{a.name}</span>
+                          {sub && <span className="row-secondary">{sub}</span>}
+                        </div>
+                        {a.warranty_status && WARRANTY_BADGE[a.warranty_status] && (
+                          <span className={WARRANTY_BADGE[a.warranty_status]}>
+                            {WARRANTY_LABEL[a.warranty_status]}
+                          </span>
+                        )}
+                        <svg width="13" height="13" viewBox="0 0 16 16" fill="none" style={{ color: 'var(--border)', flexShrink: 0 }}>
+                          <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             );
           })

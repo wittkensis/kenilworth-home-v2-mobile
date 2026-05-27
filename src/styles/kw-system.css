@@ -31,6 +31,13 @@ body {
   font-family: var(--font-body);
   background: var(--bg);
   color: var(--text);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input, textarea, [contenteditable] {
+  user-select: text;
+  -webkit-user-select: text;
 }
 
 img, video, svg {
@@ -620,7 +627,7 @@ a {
   background: rgba(26, 24, 22, 0.7);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  animation: fade-in var(--t-fast) ease forwards;
+  animation: fade-in 150ms ease forwards;
 }
 
 .sheet-panel {
