@@ -552,6 +552,10 @@ a {
   margin-bottom: 4px;
   cursor: default;
   user-select: none;
+  -webkit-user-select: none;
+  /* Suppress iOS Safari's text-selection callout on long-press, which
+     otherwise fires pointercancel and breaks our long-press-to-menu gesture. */
+  -webkit-touch-callout: none;
 }
 
 .section-header--interactive {
