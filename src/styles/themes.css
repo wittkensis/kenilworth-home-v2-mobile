@@ -56,11 +56,6 @@
   color: rgba(9, 9, 9, 0.6);
 }
 
-/* Open state → secondary mauve */
-[data-theme="lcars"] .section-header--open {
-  background: var(--accent-2);
-}
-
 /* Empty state → dim orange pill */
 [data-theme="lcars"] .section-header--empty {
   background: rgba(236, 148, 58, 0.18);
@@ -119,12 +114,44 @@
   color: var(--accent-fg);
 }
 
-/* ── Navigation chrome ── */
+/* ── Navigation chrome — mauve background, orange active state ── */
 [data-theme="lcars"] .bottom-nav {
-  border-top: 4px solid var(--accent);
+  background: var(--accent-2);
+  border-top: none;
+}
+[data-theme="lcars"] .bottom-nav-tab {
+  color: rgba(9, 9, 9, 0.55);
+}
+[data-theme="lcars"] .bottom-nav-tab.active {
+  color: var(--accent);
+}
+[data-theme="lcars"] .bottom-nav-tab.active::before {
+  background: var(--accent);
+}
+[data-theme="lcars"] .bottom-nav-more {
+  background: var(--accent-2);
+  border: 1px solid rgba(236, 148, 58, 0.3);
+}
+[data-theme="lcars"] .bottom-nav-more-item {
+  color: rgba(9, 9, 9, 0.7);
+  border-bottom-color: rgba(9, 9, 9, 0.12);
+}
+[data-theme="lcars"] .bottom-nav-more-item.active {
+  color: var(--accent);
 }
 [data-theme="lcars"] .app-sidebar {
-  border-right: 3px solid var(--accent);
+  background: var(--accent-2);
+  border-right: none;
+}
+[data-theme="lcars"] .app-sidebar-brand {
+  color: var(--accent);
+}
+[data-theme="lcars"] .app-sidebar-item {
+  color: rgba(9, 9, 9, 0.6);
+}
+[data-theme="lcars"] .app-sidebar-item.active {
+  color: var(--accent);
+  background: rgba(236, 148, 58, 0.15);
 }
 
 /* ── Badges → secondary mauve ── */
