@@ -2,10 +2,19 @@
    Applied when no data-theme is set. Tokens live in theme.css.
    ─────────────────────────────────────────────────────────────── */
 
-/* Nav — frosted warm surface, thin warm border, gold active */
+/* Nav — mauve frosted bg, thick mauve top border */
 .bottom-nav {
-  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  background: rgba(192, 130, 169, 0.12);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--border);
+  border-top: 3px solid #c082a9;
+}
+.bottom-nav-tab {
+  color: color-mix(in srgb, #c082a9 60%, #888);
+}
+.bottom-nav-tab.active {
+  color: #c082a9;
+}
+.bottom-nav-tab.active::before {
+  background: #c082a9;
 }
