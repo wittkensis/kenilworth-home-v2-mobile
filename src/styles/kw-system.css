@@ -1129,9 +1129,11 @@ a {
   border-color: rgba(239, 68, 68, 0.7);
 }
 
-/* Date input dark calendar */
+/* Date input — dark calendar, prevent iOS native picker from overflowing */
 .input[type="date"] {
   color-scheme: dark;
+  max-width: 100%;
+  min-width: 0;
 }
 
 /* Textarea */
