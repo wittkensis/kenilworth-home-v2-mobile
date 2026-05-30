@@ -114,13 +114,13 @@
   color: var(--accent-fg);
 }
 
-/* ── Navigation chrome — dark background, mauve active highlight + top border ── */
+/* ── Navigation chrome — mauve throughout ── */
 [data-theme="lcars"] .bottom-nav {
-  background: var(--surface);
+  background: color-mix(in srgb, var(--accent-2) 22%, #0d090d);
   border-top: 3px solid var(--accent-2);
 }
 [data-theme="lcars"] .bottom-nav-tab {
-  color: var(--text-dim);
+  color: color-mix(in srgb, var(--accent-2) 60%, #888);
 }
 [data-theme="lcars"] .bottom-nav-tab.active {
   color: var(--accent-2);
@@ -129,11 +129,11 @@
   background: var(--accent-2);
 }
 [data-theme="lcars"] .bottom-nav-more {
-  background: var(--surface-raised);
+  background: color-mix(in srgb, var(--accent-2) 15%, #0d090d);
   border: 1px solid rgba(192, 130, 169, 0.3);
 }
 [data-theme="lcars"] .bottom-nav-more-item {
-  color: var(--text-dim);
+  color: color-mix(in srgb, var(--accent-2) 60%, #888);
   border-bottom-color: rgba(192, 130, 169, 0.12);
 }
 [data-theme="lcars"] .bottom-nav-more-item.active {
