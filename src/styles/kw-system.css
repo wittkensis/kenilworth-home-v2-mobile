@@ -455,7 +455,7 @@ a {
   gap: 4px;
   padding-top: 12px;
   padding-bottom: 4px;
-  color: var(--text-dim);
+  color: color-mix(in srgb, var(--accent-2) 50%, var(--text-dim));
   opacity: 0.85;
   transition: color var(--t-fast), opacity var(--t-fast);
   min-height: 44px;
