@@ -116,7 +116,9 @@
 
 /* ── Navigation chrome — mauve throughout ── */
 [data-theme="lcars"] .bottom-nav {
-  background: color-mix(in srgb, var(--accent-2) 22%, #0d090d);
+  background: rgba(192, 130, 169, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-top: 3px solid var(--accent-2);
 }
 [data-theme="lcars"] .bottom-nav-tab {

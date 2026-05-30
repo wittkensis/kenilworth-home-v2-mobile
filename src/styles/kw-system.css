@@ -441,7 +441,9 @@ a {
   right: 0;
   z-index: 40;
   display: flex;
-  background: color-mix(in srgb, var(--accent-2) 22%, #181218);
+  background: rgba(192, 130, 169, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-top: 3px solid var(--accent-2);
   padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
 }
