@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState, useCallback, useEffect } from 'react';
 import { initHaptics } from '@/lib/haptics';
+import { ThemeTrigger } from '@/components/ui/ThemeSwitcher';
 
 const POPUP_ANIM_MS = 180;
 
@@ -152,6 +153,8 @@ export default function BottomNav() {
           <span>More</span>
         </button>
       </nav>
+
+      <ThemeTrigger variant="floating" />
     </>
   );
 }

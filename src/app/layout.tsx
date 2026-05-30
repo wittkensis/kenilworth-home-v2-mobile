@@ -25,8 +25,12 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" style={{ height: '100%' }}>
+      <head>
+        {/* Apply saved theme before first paint — prevents flash of default theme */}
+        <script dangerouslySetInnerHTML={{ __html: `try{var t=localStorage.getItem('home-theme');if(t&&t!=='folk')document.documentElement.dataset.theme=t;}catch(e){}` }} />
+      </head>
+      <body style={{ height: '100%' }}>{children}</body>
     </html>
   );
 }

@@ -1,0 +1,301 @@
+/* ─────────────────────────────────────────────────────────────
+   FOCUS THEMES — applied via data-theme on <html>
+   Default (Folk) comes from theme.css — no override needed.
+   ───────────────────────────────────────────────────────────── */
+
+
+/* ─── LCARS — Star Trek: The Next Generation ───────────────────
+   Canonical Doug Drexler palette (louh/lcars reference):
+     a1 #ec943a  a2 #eb9870  a3 #c47d69  a4 #d29a7f  a5 #faa41b
+     a6 #c082a9  a7 #9c698a  a8 #b6a5d1  a9 #8b72aa
+   Font: Bebas Neue ≈ Helvetica LT Std Ultra Compressed
+   ─────────────────────────────────────────────────────────────── */
+
+[data-theme="lcars"] {
+  --font-heading:   'Bebas Neue', 'Antonio', sans-serif;
+  --bg:             #090909;    /* lcars-color-black */
+  --surface:        #190700;    /* near-black, faint orange tint */
+  --surface-raised: #2d1100;
+  --border:         rgba(236, 148, 58, 0.18);  /* a1 @ 18% */
+  --text:           #eb9870;    /* a2 — peach */
+  --text-dim:       #c47d69;    /* a3 — terracotta */
+  --accent:         #ec943a;    /* a1 — primary orange */
+  --accent-fg:      #090909;
+  --accent-2:       #c082a9;    /* a6 — mauve (secondary) */
+  --accent-2-fg:    #090909;
+
+  /* Status — map to LCARS palette blues/purples */
+  --status-success-bg:   rgba(177, 165, 209, 0.15);  /* a8 tint */
+  --status-success-text: #b6a5d1;                     /* a8 lavender */
+  --status-warn-bg:      rgba(250, 164, 27, 0.15);    /* a5 tint */
+  --status-warn-text:    #faa41b;                     /* a5 amber */
+}
+
+/* ── Section headers → solid LCARS pill buttons ── */
+[data-theme="lcars"] .section-header {
+  background: var(--accent);
+  border-radius: 9999px;
+  border: none;
+  margin-bottom: 6px;
+}
+[data-theme="lcars"] .section-header-label {
+  color: var(--accent-fg);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+}
+[data-theme="lcars"] .section-header-count {
+  background: rgba(9, 9, 9, 0.25);
+  color: var(--accent-fg);
+}
+[data-theme="lcars"] .section-header-chevron {
+  color: var(--accent-fg);
+}
+[data-theme="lcars"] .section-header-meta {
+  color: rgba(9, 9, 9, 0.6);
+}
+
+/* Open state → secondary mauve */
+[data-theme="lcars"] .section-header--open {
+  background: var(--accent-2);
+}
+
+/* Empty state → dim orange pill */
+[data-theme="lcars"] .section-header--empty {
+  background: rgba(236, 148, 58, 0.18);
+}
+[data-theme="lcars"] .section-header--empty .section-header-label {
+  color: var(--accent);
+  opacity: 0.55;
+}
+[data-theme="lcars"] .section-header--empty .section-header-chevron {
+  color: var(--accent);
+}
+
+/* ── Category labels → secondary accent, Bebas Neue ── */
+[data-theme="lcars"] .category-label {
+  color: var(--accent-2);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  opacity: 1;
+}
+
+/* ── Tab switcher → individual pill buttons with gaps ── */
+[data-theme="lcars"] .tab-switcher {
+  background: transparent;
+  border-radius: 0;
+  gap: 6px;
+  overflow: visible;
+}
+[data-theme="lcars"] .tab-switcher-tab {
+  border-radius: 9999px;
+  background: rgba(236, 148, 58, 0.12);
+  color: var(--accent);
+}
+[data-theme="lcars"] .tab-switcher-tab--active {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* ── Domain title → uppercase ── */
+[data-theme="lcars"] .domain-title,
+[data-theme="lcars"] .page-title {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Condensed header → solid LCARS orange title bar ── */
+[data-theme="lcars"] .page-header--condensed {
+  background: var(--accent);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: var(--accent);
+}
+[data-theme="lcars"] .page-header--condensed .domain-title,
+[data-theme="lcars"] .page-header--condensed .page-title {
+  color: var(--accent-fg);
+}
+
+/* ── Navigation chrome ── */
+[data-theme="lcars"] .bottom-nav {
+  border-top: 4px solid var(--accent);
+}
+[data-theme="lcars"] .app-sidebar {
+  border-right: 3px solid var(--accent);
+}
+
+/* ── Badges → secondary mauve ── */
+[data-theme="lcars"] .badge-neutral {
+  background: rgba(192, 130, 169, 0.15);
+  color: var(--accent-2);
+  border: 1px solid rgba(192, 130, 169, 0.3);
+}
+
+/* ── btn-icon (header +) → accent ring ── */
+[data-theme="lcars"] .btn-icon {
+  background: rgba(236, 148, 58, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(236, 148, 58, 0.3);
+}
+
+
+/* ─── Midnight — deep ocean blue ─── */
+
+[data-theme="midnight"] {
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --bg:             #060B14;
+  --surface:        #0D1826;
+  --surface-raised: #152238;
+  --border:         rgba(64, 120, 255, 0.15);
+  --text:           #DCE8FF;
+  --text-dim:       #5A80B4;
+  --accent:         #4078FF;
+  --accent-fg:      #FFFFFF;
+}
+
+
+/* ─── Carbon — true black, minimal ─── */
+
+[data-theme="carbon"] {
+  --font-heading: 'DM Mono', 'Fira Mono', monospace;
+  --bg:             #000000;
+  --surface:        #0A0A0A;
+  --surface-raised: #141414;
+  --border:         rgba(255, 255, 255, 0.08);
+  --text:           #FFFFFF;
+  --text-dim:       rgba(255, 255, 255, 0.38);
+  --accent:         #FFFFFF;
+  --accent-fg:      #000000;
+}
+
+[data-theme="carbon"] .section-header--empty {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="carbon"] .tab-switcher-tab--active {
+  background: #FFFFFF;
+  color: #000000;
+}
+
+
+/* ─── Windows 95 ─── */
+
+[data-theme="win95"] {
+  --font-heading:   'Press Start 2P', 'Courier New', monospace;
+  --bg:             #008080;   /* classic teal desktop */
+  --surface:        #C0C0C0;   /* dialog / window gray */
+  --surface-raised: #FFFFFF;
+  --border:         rgba(128, 128, 128, 0.6);
+  --text:           #000000;
+  --text-dim:       #444444;
+  --accent:         #000080;   /* title-bar navy */
+  --accent-fg:      #FFFFFF;
+}
+
+/* 3D raised button look on section headers */
+[data-theme="win95"] .section-header {
+  border-radius: 2px;
+  border: 2px outset #DFDFDF;
+}
+
+/* Condensed header becomes a Win95 title bar */
+[data-theme="win95"] .page-header--condensed {
+  background: linear-gradient(90deg, #000080 0%, #1084D0 100%);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: #000080;
+}
+[data-theme="win95"] .page-header--condensed .domain-title,
+[data-theme="win95"] .page-header--condensed .page-title {
+  color: #FFFFFF;
+}
+
+[data-theme="win95"] .tab-switcher {
+  border-radius: 2px;
+  border: 2px inset #808080;
+  overflow: hidden;
+}
+[data-theme="win95"] .tab-switcher-tab--active {
+  border-radius: 0;
+}
+
+[data-theme="win95"] .bottom-nav {
+  border-top: 2px outset #DFDFDF;
+}
+
+[data-theme="win95"] .category-label {
+  color: #000080;
+  opacity: 1;
+  font-weight: 700;
+}
+
+[data-theme="win95"] .app-sidebar {
+  border-right: 2px outset #DFDFDF;
+}
+
+
+/* ─── Classic Mac — System 6 / 7 era ─── */
+
+[data-theme="mac"] {
+  --font-heading:   'VT323', 'Monaco', 'Courier New', monospace;
+  --bg:             #FFFFFF;
+  --surface:        #EEEEEE;
+  --surface-raised: #DDDDDD;
+  --border:         rgba(0, 0, 0, 0.25);
+  --text:           #000000;
+  --text-dim:       #555555;
+  --accent:         #000000;
+  --accent-fg:      #FFFFFF;
+
+  /* status tokens adapted for B&W */
+  --status-success-bg:   rgba(0,0,0,0.06);
+  --status-success-text: #000000;
+}
+
+[data-theme="mac"] .section-header {
+  border-radius: 3px;
+  border: 1px solid #000000;
+  box-shadow: 1px 1px 0 #000000;
+}
+
+[data-theme="mac"] .tab-switcher {
+  border-radius: 3px;
+  border: 1px solid #000000;
+  background: #FFFFFF;
+  overflow: hidden;
+}
+[data-theme="mac"] .tab-switcher-tab--active {
+  border-radius: 0;
+  background: #000000;
+  color: #FFFFFF;
+}
+
+[data-theme="mac"] .bottom-nav {
+  border-top: 1px solid #000000;
+  background: #EEEEEE;
+}
+
+[data-theme="mac"] .app-sidebar {
+  border-right: 1px solid #000000;
+  background: #EEEEEE;
+}
+
+[data-theme="mac"] .page-header {
+  background: #FFFFFF;
+  border-bottom: 1px solid #000000;
+}
+
+[data-theme="mac"] .category-label {
+  color: #000000;
+  opacity: 0.65;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+[data-theme="mac"] .badge-neutral {
+  background: #000000;
+  color: #FFFFFF;
+}
