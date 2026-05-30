@@ -43,7 +43,12 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   font-family: var(--font-heading);
-  font-size: 1.05rem;
+  font-size: 1.25rem;
+}
+[data-theme="lcars"] .sheet-title {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 [data-theme="lcars"] .section-header-count {
   background: rgba(9, 9, 9, 0.25);
