@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Sheet } from "./Sheet";
 
-type ThemeId = 'folk' | 'lcars' | 'midnight' | 'carbon' | 'win95' | 'mac';
+type ThemeId = 'folk' | 'lcars' | 'midnight' | 'carbon' | 'win95' | 'mac' | 'ios';
 
 const THEMES: {
   id: ThemeId;
@@ -11,6 +11,12 @@ const THEMES: {
   description: string;
   preview: { bg: string; surface: string; accent: string; text: string };
 }[] = [
+  {
+    id: 'ios',
+    name: 'Default',
+    description: 'Native iOS UIKit',
+    preview: { bg: '#000000', surface: '#1C1C1E', accent: '#0A84FF', text: '#FFFFFF' },
+  },
   {
     id: 'folk',
     name: 'Folk',

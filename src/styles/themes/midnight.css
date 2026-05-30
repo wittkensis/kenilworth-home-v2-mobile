@@ -1,0 +1,20 @@
+/* ─── Midnight — deep ocean blue ────────────────────────────── */
+
+[data-theme="midnight"] {
+  --font-heading: 'Space Grotesk', system-ui, sans-serif;
+  --bg:             #060B14;
+  --surface:        #0D1826;
+  --surface-raised: #152238;
+  --border:         rgba(64, 120, 255, 0.15);
+  --text:           #DCE8FF;
+  --text-dim:       #5A80B4;
+  --accent:         #4078FF;
+  --accent-fg:      #FFFFFF;
+}
+
+[data-theme="midnight"] .bottom-nav {
+  background: color-mix(in srgb, var(--bg) 80%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+}

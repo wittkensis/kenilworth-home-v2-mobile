@@ -1,0 +1,27 @@
+/* ─── Carbon — true black, minimal ─────────────────────────── */
+
+[data-theme="carbon"] {
+  --font-heading: 'DM Mono', 'Fira Mono', monospace;
+  --bg:             #000000;
+  --surface:        #0A0A0A;
+  --surface-raised: #141414;
+  --border:         rgba(255, 255, 255, 0.08);
+  --text:           #FFFFFF;
+  --text-dim:       rgba(255, 255, 255, 0.38);
+  --accent:         #FFFFFF;
+  --accent-fg:      #000000;
+}
+
+[data-theme="carbon"] .bottom-nav {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}
+
+[data-theme="carbon"] .section-header--empty {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="carbon"] .tab-switcher-tab--active {
+  background: #FFFFFF;
+  color: #000000;
+}

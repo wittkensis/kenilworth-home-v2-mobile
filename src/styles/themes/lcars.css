@@ -1,0 +1,169 @@
+/* ─── LCARS — Star Trek: The Next Generation ───────────────────
+   Canonical Doug Drexler palette (louh/lcars reference):
+     a1 #ec943a  a2 #eb9870  a3 #c47d69  a4 #d29a7f  a5 #faa41b
+     a6 #c082a9  a7 #9c698a  a8 #b6a5d1  a9 #8b72aa
+   Font: Bebas Neue ≈ Helvetica LT Std Ultra Compressed
+   ─────────────────────────────────────────────────────────────── */
+
+[data-theme="lcars"] {
+  --font-heading:   'Bebas Neue', 'Antonio', sans-serif;
+  --bg:             #090909;
+  --surface:        #190700;
+  --surface-raised: #2d1100;
+  --border:         rgba(236, 148, 58, 0.18);
+  --text:           #eb9870;
+  --text-dim:       #c47d69;
+  --accent:         #ec943a;
+  --accent-fg:      #090909;
+  --accent-2:       #c082a9;
+  --accent-2-fg:    #090909;
+
+  --status-success-bg:   rgba(177, 165, 209, 0.15);
+  --status-success-text: #b6a5d1;
+  --status-warn-bg:      rgba(250, 164, 27, 0.15);
+  --status-warn-text:    #faa41b;
+}
+
+/* Section headers → solid LCARS pill buttons */
+[data-theme="lcars"] .section-header {
+  background: var(--accent);
+  border-radius: 9999px;
+  border: none;
+  margin-bottom: 6px;
+}
+[data-theme="lcars"] .section-header-label {
+  color: var(--accent-fg);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+}
+[data-theme="lcars"] .sheet-title {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+[data-theme="lcars"] .section-header-count {
+  background: rgba(9, 9, 9, 0.25);
+  color: var(--accent-fg);
+}
+[data-theme="lcars"] .section-header-chevron {
+  color: var(--accent-fg);
+}
+[data-theme="lcars"] .section-header-meta {
+  color: rgba(9, 9, 9, 0.6);
+}
+
+/* Empty state → dim orange pill */
+[data-theme="lcars"] .section-header--empty {
+  background: rgba(236, 148, 58, 0.18);
+}
+[data-theme="lcars"] .section-header--empty .section-header-label {
+  color: var(--accent);
+  opacity: 0.55;
+}
+[data-theme="lcars"] .section-header--empty .section-header-chevron {
+  color: var(--accent);
+}
+
+/* Category labels → secondary accent, Bebas Neue */
+[data-theme="lcars"] .category-label {
+  color: var(--accent-2);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  opacity: 1;
+}
+
+/* Tab switcher → individual pill buttons with gaps */
+[data-theme="lcars"] .tab-switcher {
+  background: transparent;
+  border-radius: 0;
+  gap: 6px;
+  overflow: visible;
+}
+[data-theme="lcars"] .tab-switcher-tab {
+  border-radius: 9999px;
+  background: rgba(236, 148, 58, 0.12);
+  color: var(--accent);
+}
+[data-theme="lcars"] .tab-switcher-tab--active {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* Domain/page titles → uppercase */
+[data-theme="lcars"] .domain-title,
+[data-theme="lcars"] .page-title {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* Condensed header → solid orange title bar */
+[data-theme="lcars"] .page-header--condensed {
+  background: var(--accent);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: var(--accent);
+}
+[data-theme="lcars"] .page-header--condensed .domain-title,
+[data-theme="lcars"] .page-header--condensed .page-title {
+  color: var(--accent-fg);
+}
+
+/* Navigation chrome — mauve throughout */
+[data-theme="lcars"] .bottom-nav {
+  background: rgba(192, 130, 169, 0.12);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 3px solid var(--accent-2);
+}
+[data-theme="lcars"] .bottom-nav-tab {
+  color: color-mix(in srgb, var(--accent-2) 60%, #888);
+}
+[data-theme="lcars"] .bottom-nav-tab.active {
+  color: var(--accent-2);
+}
+[data-theme="lcars"] .bottom-nav-tab.active::before {
+  background: var(--accent-2);
+}
+[data-theme="lcars"] .bottom-nav-more {
+  background: color-mix(in srgb, var(--accent-2) 15%, #0d090d);
+  border: 1px solid rgba(192, 130, 169, 0.3);
+}
+[data-theme="lcars"] .bottom-nav-more-item {
+  color: color-mix(in srgb, var(--accent-2) 60%, #888);
+  border-bottom-color: rgba(192, 130, 169, 0.12);
+}
+[data-theme="lcars"] .bottom-nav-more-item.active {
+  color: var(--accent-2);
+}
+[data-theme="lcars"] .app-sidebar {
+  background: var(--surface);
+  border-right: 1px solid rgba(192, 130, 169, 0.2);
+}
+[data-theme="lcars"] .app-sidebar-brand {
+  color: var(--accent-2);
+}
+[data-theme="lcars"] .app-sidebar-item {
+  color: var(--text-dim);
+}
+[data-theme="lcars"] .app-sidebar-item.active {
+  color: var(--accent-2);
+  background: rgba(192, 130, 169, 0.12);
+}
+
+/* Badges → secondary mauve */
+[data-theme="lcars"] .badge-neutral {
+  background: rgba(192, 130, 169, 0.15);
+  color: var(--accent-2);
+  border: 1px solid rgba(192, 130, 169, 0.3);
+}
+
+/* btn-icon (header +) → accent ring */
+[data-theme="lcars"] .btn-icon {
+  background: rgba(236, 148, 58, 0.12);
+  color: var(--accent);
+  border: 1px solid rgba(236, 148, 58, 0.3);
+}

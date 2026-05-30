@@ -1,0 +1,8 @@
+/* Theme registry — one file per theme, each fully self-contained */
+@import './folk.css';
+@import './ios.css';
+@import './lcars.css';
+@import './midnight.css';
+@import './carbon.css';
+@import './win95.css';
+@import './mac.css';

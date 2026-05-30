@@ -1,0 +1,117 @@
+/* ─── iOS Default — Native UIKit dark mode ─────────────────────
+   System colors from UIKit dark appearance (iOS 15+)
+   ─────────────────────────────────────────────────────────────── */
+
+[data-theme="ios"] {
+  --bg:             #000000;   /* systemBackground */
+  --surface:        #1C1C1E;   /* secondarySystemBackground */
+  --surface-raised: #2C2C2E;   /* tertiarySystemBackground */
+  --border:         rgba(84, 84, 88, 0.65);  /* separator */
+  --text:           #FFFFFF;   /* label */
+  --text-dim:       #8E8E93;   /* secondaryLabel */
+  --accent:         #0A84FF;   /* systemBlue */
+  --accent-fg:      #FFFFFF;
+  --accent-2:       #30D158;   /* systemGreen */
+  --danger:         #FF453A;   /* systemRed */
+  --font-heading:   -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+}
+
+/* System font throughout — no custom typefaces */
+[data-theme="ios"] body,
+[data-theme="ios"] button,
+[data-theme="ios"] input,
+[data-theme="ios"] select,
+[data-theme="ios"] textarea {
+  font-family: -apple-system, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+}
+
+/* Large title — bold, tight tracking */
+[data-theme="ios"] .page-title {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+}
+
+/* Section headers — iOS grouped table header style (no pill) */
+[data-theme="ios"] .section-header {
+  background: transparent;
+  border-radius: 0;
+  padding: 4px 20px 4px;
+  margin-bottom: 0;
+}
+[data-theme="ios"] .section-header--empty {
+  background: transparent;
+}
+[data-theme="ios"] .section-header-label {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+[data-theme="ios"] .section-header-count {
+  background: transparent;
+  color: var(--text-dim);
+}
+[data-theme="ios"] .section-header-chevron {
+  color: var(--text-dim);
+}
+
+/* Sheet — navigation bar style header */
+[data-theme="ios"] .sheet-title {
+  font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+/* Inputs — iOS fill style (secondary background, no hard border) */
+[data-theme="ios"] .input {
+  background: var(--surface-raised);
+  border-color: transparent;
+  border-radius: 10px;
+}
+[data-theme="ios"] .input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+
+/* Nav — iOS tab bar */
+[data-theme="ios"] .bottom-nav {
+  background: rgba(28, 28, 30, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 0.5px solid rgba(84, 84, 88, 0.65);
+}
+[data-theme="ios"] .bottom-nav-tab {
+  color: var(--text-dim);
+  opacity: 1;
+}
+[data-theme="ios"] .bottom-nav-tab.active {
+  color: var(--accent);
+}
+[data-theme="ios"] .bottom-nav-tab.active::before {
+  display: none;  /* iOS tab bar has no top indicator */
+}
+[data-theme="ios"] .bottom-nav-more {
+  background: rgba(44, 44, 46, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 0.5px solid rgba(84, 84, 88, 0.65);
+}
+[data-theme="ios"] .bottom-nav-more-item {
+  color: var(--text-dim);
+}
+[data-theme="ios"] .bottom-nav-more-item.active {
+  color: var(--accent);
+}
+
+/* Buttons — iOS system button style */
+[data-theme="ios"] .btn-primary {
+  background: var(--accent);
+  border-radius: 12px;
+}
+[data-theme="ios"] .btn-ghost {
+  color: var(--accent);
+}
