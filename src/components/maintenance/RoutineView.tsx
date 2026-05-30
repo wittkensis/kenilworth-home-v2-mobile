@@ -112,6 +112,7 @@ export default function RoutineView({ reminders }: { reminders: RoutineReminder[
       </div>
 
       <ReminderSheet
+        key={sheetOpen ? (selected?.id ?? 'new') : 'closed'}
         reminder={selected}
         open={sheetOpen}
         onClose={() => setSheetOpen(false)}

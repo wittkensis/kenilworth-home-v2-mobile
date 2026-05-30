@@ -78,6 +78,7 @@ export default function MaintenanceList({ tasks }: { tasks: TaskWithStatus[] }) 
       </div>
 
       <TaskSheet
+        key={sheetOpen ? (selected?.id ?? 'new') : 'closed'}
         task={selected}
         open={sheetOpen}
         onClose={() => setSheetOpen(false)}

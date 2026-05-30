@@ -110,6 +110,7 @@ export default function UpgradeList({ upgrades }: { upgrades: UpgradeRow[] }) {
       </div>
 
       <UpgradeSheet
+        key={sheetOpen ? (selected?.id ?? 'new') : 'closed'}
         upgrade={selected}
         open={sheetOpen}
         onClose={() => setSheetOpen(false)}

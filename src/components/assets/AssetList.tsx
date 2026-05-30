@@ -116,6 +116,7 @@ export default function AssetList({
       </div>
 
       <AssetSheet
+        key={sheetOpen ? (selected?.id ?? 'new') : 'closed'}
         asset={selected}
         areaGroups={areaGroups}
         areaItems={areaItems}

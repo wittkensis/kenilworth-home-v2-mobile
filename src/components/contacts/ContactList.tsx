@@ -95,6 +95,7 @@ export default function ContactList({ contacts }: { contacts: ContactRow[] }) {
       </div>
 
       <ContactSheet
+        key={sheetOpen ? (selected?.id ?? 'new') : 'closed'}
         contact={selected}
         open={sheetOpen}
         onClose={() => setSheetOpen(false)}
