@@ -441,8 +441,8 @@ a {
   right: 0;
   z-index: 40;
   display: flex;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
+  background: color-mix(in srgb, var(--accent-2) 8%, var(--surface));
+  border-top: 3px solid var(--accent-2);
   padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
 }
 

@@ -117,7 +117,7 @@
 /* ── Navigation chrome — dark background, mauve active highlight + top border ── */
 [data-theme="lcars"] .bottom-nav {
   background: var(--surface);
-  border-top: none;
+  border-top: 3px solid var(--accent-2);
 }
 [data-theme="lcars"] .bottom-nav-tab {
   color: var(--text-dim);
